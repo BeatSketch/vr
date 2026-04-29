@@ -2,6 +2,9 @@ local sabers = require("ui.controllers.sabers")
 local tracking = require("util.tracking.tracking")
 local render = require("ui.render")
 local ipc = require("util.ipc")
+local cli = require("util.cli")
+
+cli.parse_cli_opts()
 
 --[[
  ___               _   ___   _           _         _
@@ -37,8 +40,6 @@ end
 -- │              Physics / Tracking               │
 -- └                                               ┘
 -- Tracking and the like get continuous updates
--- local tracking = require("util.tracking")
--- local song = tracking:new()
 function lovr.update(delta_time)
 	tracking.update_hands(delta_time)
     render.update()
