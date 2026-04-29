@@ -80,6 +80,8 @@ function M.get_head()
 end
 
 function M.get_for_transmit()
+    -- FIXME: This currently crashes if only one controller is tracked ever (i.e. make more resilient)
+    -- Reason for the crash: The unpacked data somehow produces invalid or mixed keys
 	return {
 		left = {
 			timestamp = tracker_states.left.delta, -- TODO: Make this actually use the absolute time stamp
