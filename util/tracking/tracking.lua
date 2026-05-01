@@ -4,16 +4,16 @@ local M = {}
 --- @type PositionStates
 local tracker_states = {
 	head = {
-		pos = vec3(0, 0, 0),
-		direction = vec3(0, 0, 0),
-		angle = quat(0, 0, 0, 1),
+		pos = lovr.math.newVec3(0, 0, 0),
+		direction = lovr.math.newVec3(0, 0, 0),
+		angle = lovr.math.newQuat(0, 0, 0, 1),
 		delta = 0,
 		buttons = {},
 	},
 	left = {
-		pos = vec3(0, 0, 0),
-		direction = vec3(0, 0, 0),
-		angle = quat(0, 0, 0, 1),
+		pos = lovr.math.newVec3(0, 0, 0),
+		direction = lovr.math.newVec3(0, 0, 0),
+		angle = lovr.math.newQuat(0, 0, 0, 1),
 		delta = 0,
 		buttons = {},
 	},
@@ -80,8 +80,6 @@ function M.get_head()
 end
 
 function M.get_for_transmit()
-    -- FIXME: This currently crashes if only one controller is tracked ever (i.e. make more resilient)
-    -- Reason for the crash: The unpacked data somehow produces invalid or mixed keys
 	return {
 		left = {
 			timestamp = tracker_states.left.delta, -- TODO: Make this actually use the absolute time stamp
@@ -114,6 +112,22 @@ function M.get_for_transmit()
 				(tracker_states.right.pos + tracker_states.left.direction):unpack(),
 			},
 			buttons = tracker_states.right.buttons,
+		},
+		head = {
+			timestamp = tracker_states.head.delta, -- TODO: Make this actually use the absolute time stamp
+			pos = {
+				tracker_states.head.pos:unpack(),
+			},
+			direction = {
+				tracker_states.head.direction:unpack(),
+			},
+			quat = {
+				tracker_states.head.angle:unpack(),
+			},
+			tip = {
+				(tracker_states.head.pos + tracker_states.left.direction):unpack(),
+			},
+			buttons = tracker_states.head.buttons,
 		},
 	}
 end

@@ -24,9 +24,9 @@ local button_list = {
 ---@return string[]
 local function get_down_buttons(device, buttons)
 	local pressed = {}
-	local idx = 0
+	local idx = 1
 
-	for _, value in ipairs(buttons) do
+	for _, value in pairs(buttons) do
 		if lovr.headset.isDown(device, value) then
 			pressed[idx] = value
 			idx = idx + 1
