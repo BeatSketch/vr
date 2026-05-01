@@ -2,6 +2,7 @@
 
 local M = {}
 
+--- The angle of the saber in relation to the default rotation
 --- @type number In degrees
 M.angle = -20
 
@@ -18,10 +19,11 @@ local button_list = {
 }
 
 --- @alias button "trigger" | "thumbrest" | "grip" | "menu" | "a" | "b" | "x" | "y" | "nib"
+
 --- Get all buttons on the device that are pressed
----@param device "head" | "left" | "right"
----@param buttons button[]
----@return string[]
+--- @param device "head" | "left" | "right"
+--- @param buttons button[]
+--- @return string[]
 local function get_down_buttons(device, buttons)
 	local pressed = {}
 	local idx = 1
@@ -37,9 +39,9 @@ local function get_down_buttons(device, buttons)
 end
 
 --- Get the tracked position of a hand
----@param hand hands The hand to get the data for
----@param dt number The delta time since last call
----@return PositionState
+--- @param hand hands The hand to get the data for
+--- @param dt number The delta time since last call
+--- @return PositionState
 function M.get_hand(hand, dt)
 	-- 1. Get vector
 	local dir = vec3(lovr.headset.getDirection(hand))

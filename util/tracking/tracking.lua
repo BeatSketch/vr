@@ -1,4 +1,5 @@
 local trackers = require("util.tracking.trackers")
+local audio = require("util.audio")
 local M = {}
 
 --- @type PositionStates
@@ -82,7 +83,7 @@ end
 function M.get_for_transmit()
 	return {
 		left = {
-			timestamp = tracker_states.left.delta, -- TODO: Make this actually use the absolute time stamp
+			timestamp = audio.get_pos(),
 			pos = {
 				tracker_states.left.pos:unpack(),
 			},
@@ -98,7 +99,7 @@ function M.get_for_transmit()
 			buttons = tracker_states.left.buttons,
 		},
 		right = {
-			timestamp = tracker_states.right.delta, -- TODO: Make this actually use the absolute time stamp
+			timestamp = audio.get_pos(),
 			pos = {
 				tracker_states.right.pos:unpack(),
 			},
@@ -114,7 +115,7 @@ function M.get_for_transmit()
 			buttons = tracker_states.right.buttons,
 		},
 		head = {
-			timestamp = tracker_states.head.delta, -- TODO: Make this actually use the absolute time stamp
+			timestamp = audio.get_pos(),
 			pos = {
 				tracker_states.head.pos:unpack(),
 			},
@@ -125,10 +126,11 @@ function M.get_for_transmit()
 				tracker_states.head.angle:unpack(),
 			},
 			tip = {
-				(tracker_states.head.pos + tracker_states.left.direction):unpack(),
+				(tracker_states.head.pos + tracker_states.head.direction):unpack(),
 			},
 			buttons = tracker_states.head.buttons,
 		},
+		paused = not audio.is_playing(),
 	}
 end
 
