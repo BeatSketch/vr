@@ -22,9 +22,11 @@ end
 
 --- Update handler for the start menu
 function M.start_menu_update()
-	start_menu_button:handler(function()
-		show_start_menu = false
-	end)
+	if show_start_menu then
+		start_menu_button:handler(function()
+			show_start_menu = false
+		end)
+	end
 end
 
 --- Drawer function fro the pause menu
@@ -34,23 +36,25 @@ function M.pause_menu_draw(pass)
 		pass:setColor(0.2, 0.2, 0.2)
 		pass:text("PAUSED", 0, 1.8, -2, 0.5)
 		pause_menu_resume_button:draw(pass)
-        pause_menu_quit_button:draw(pass)
+		pause_menu_quit_button:draw(pass)
 	end
 end
 
 --- Update handler for the pause menu
 function M.pause_menu_update()
-	pause_menu_resume_button:handler(function()
-		show_pause_menu = false
-	end)
-	pause_menu_quit_button:handler(function()
-		lovr.event.quit(0)
-	end)
-	tracking.handle_buttons({ "a", "b", "x", "y" }, function()
-		if not show_start_menu then
-			show_pause_menu = true
-		end
-	end)
+	if show_pause_menu then
+		pause_menu_resume_button:handler(function()
+			show_pause_menu = false
+		end)
+		pause_menu_quit_button:handler(function()
+			lovr.event.quit(0)
+		end)
+		tracking.handle_buttons({ "a", "b", "x", "y" }, function()
+			if not show_start_menu then
+				show_pause_menu = true
+			end
+		end)
+	end
 end
 
 return M
