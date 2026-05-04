@@ -8,7 +8,10 @@ TBA (once pipelines, etc are up)
 ### Setting up
 Download and install (optional) [LÖVR](https://lovr.org).
 
-To run it, follow [this guide](https://lovr.org/docs/Getting_Started#running-a-project)
+Then, clone the [launcher repo](https://github.com/BeatSketch/launcher). To run it, simply open the launcher.
+
+### Running standalone
+To run the VR application standalone, follow [this guide](https://lovr.org/docs/Getting_Started#running-a-project)
 
 If you are using Linux with a Wayland Compositor, use [gamescope](https://github.com/ValveSoftware/gamescope) to run it
 `gamescope lovr main.lua`
