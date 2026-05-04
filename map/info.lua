@@ -32,7 +32,7 @@ local json = require("json")
 --- @field noteJumpStartBeatOffset number NJS offset
 --- @field beatmapDataFilename string The file of the Beatmap (default: <Difficulty>.dat)
 --- @field lightShowDataFilename string The file of the Lightshow (default: Lightshow.dat)
----
+
 --- @class BeatMapAuthors
 --- @field mappers table<string>
 --- @field lighters table<string>
@@ -49,7 +49,7 @@ local json = require("json")
 --- The BeatMap file abstraction. Only use the provided functions
 --- to mutate the state as they provide some guards
 --- @class InfoFile
---- @field data table
+--- @field data InfoFileContent
 --- @field counts InfoFileIndices
 local InfoFile = {}
 -- ── End TYPEDEF ──────────────────────────────────────────────────
