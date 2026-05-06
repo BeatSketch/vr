@@ -3,8 +3,10 @@ local tracking = require("util.tracking.tracking")
 local render = require("ui.render")
 local ipc = require("util.ipc")
 local cli = require("util.cli")
+local printing = require("util.printing")
 
-cli.parse_cli_opts()
+print("CLI ARGUMENTS:")
+printing.print_table(cli.parse_cli_opts())
 
 --[[
  ___               _   ___   _           _         _
