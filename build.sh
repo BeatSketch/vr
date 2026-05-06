@@ -26,4 +26,20 @@ cp BeatSketch.exe ..
 cd ..
 rm BeatSketch.lovr
 
-# TODO: Mac Build?
+# Build for Mac
+# TODO: Mac Build
+if [ -d "./LOVR-Mac/" ]; then
+    echo "LOVR-Mac already exists, skipping download"
+    cd LOVR-Mac
+else
+    mkdir LOVR-Mac
+    cd LOVR-Mac
+    wget https://lovr.org/download/mac
+    unzip mac
+    rm mac
+fi
+
+cp ../BeatSketch.lovr ./Contents/Resources
+# sed the Contents/Info.plist file
+# according to https://lovr.org/docs/Distribution#macos
+# TODO: for the python application, build it, then create dmg for installation
