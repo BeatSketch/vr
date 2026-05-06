@@ -46,10 +46,11 @@ function lovr.update(delta_time)
 	tracking.update_hands(delta_time)
     render.update()
     ipc.send_json(tracking.get_for_transmit())
+    -- NOTE: This works, sorta well
+    -- printing.print_table(ipc.get_data())
 end
 
--- TODO: Allow gets (but only if certain args are set)
-ipc.init(false)
+ipc.init(true)
 
 -- TODO: Possibly a separate desktop mirror
 -- (to draw it from 3rd person instead, could be a good effect for demo, 
