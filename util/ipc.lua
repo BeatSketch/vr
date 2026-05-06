@@ -14,7 +14,7 @@ function M.init(allow_gets)
     print("[BeatSketch] IPC INIT COMPLETE")
 end
 
---- BLOCKING! Get the all the data from the parent, until parent tells us to move on
+--- BLOCKING! Get all the data from the parent, until parent tells us to move on
 --- @return table<integer, string | table> data The data that is retrieved
 function M.get_data()
     if not allow_get or not init_done then

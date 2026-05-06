@@ -9,7 +9,7 @@ local pause_menu_quit_button = button:new(-0.6, 1, -2, 0, 0, 0, 1, 0.5, "Quit", 
 local show_pause_menu = false
 local show_start_menu = true
 
---- Drawer function fro the start menu
+--- Drawer function for the start menu
 ---@param pass Pass
 function M.start_menu_draw(pass)
 	if show_start_menu then
@@ -29,7 +29,7 @@ function M.start_menu_update()
 	end
 end
 
---- Drawer function fro the pause menu
+--- Drawer function for the pause menu
 ---@param pass Pass
 function M.pause_menu_draw(pass)
 	if show_pause_menu then

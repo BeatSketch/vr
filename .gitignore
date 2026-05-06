@@ -45,3 +45,6 @@ LOVR-Windows
 /lua
 /lua_modules
 /.luarocks
+
+# IDE
+.vscode
