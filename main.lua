@@ -48,3 +48,7 @@ end
 
 -- TODO: Allow gets (but only if certain args are set)
 ipc.init(false)
+
+-- TODO: Possibly a separate desktop mirror
+-- (to draw it from 3rd person instead, could be a good effect for demo, 
+-- and doesn't look to be hard: https://lovr.org/docs/Flatscreen/Spectator_Camera)

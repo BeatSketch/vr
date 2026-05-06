@@ -10,7 +10,11 @@ function M.load(file)
 	if init then
 		error("Audio Source already initialized")
 	end
-	AudioSource = lovr.audio.newSource(file)
+	AudioSource = lovr.audio.newSource(file, {
+		pitchable = false,
+		spatial = false,
+		decode = false,
+	})
 	AudioSource:setLooping(false)
 	init = true
 	is_playing = false
