@@ -1,15 +1,14 @@
 # TODOs
 ## Renderer
-- [ ] Desktop UI / Launcher
 - [X] Sabers
 - [ ] Sabers: Rotatable in all directions
 - [ ] Tracking line (Saber tip? Controller position?)
 - [ ] In-VR UI elements such as placed number of blocks, current blocks per minute, song position, pause menu (with seek to time, delete all future, resume)
-- [ ] 4 lanes
+- [X] 4 lanes
 - [ ] Add some animation for bpm?
 
 ## UI Library (in VR)
-- [ ] Buttons
+- [X] Buttons
 - [ ] Text
 
 ## Audio
@@ -24,5 +23,4 @@
 
 ## Others
 - [ ] BPM detect?
-- [ ] Desktop user interface refuse to launch vr app if on wayland and no gamescope installed
-- [ ] Desktop UI to pick song file, cover art, song name, artist name, mapper name, bpm (or auto-detect)?, preview window?, preview duration?, save location for the map
+- [X] Desktop UI to pick song file, cover art, song name, artist name, mapper name, bpm (or auto-detect)?, preview window?, preview duration?, save location for the map
