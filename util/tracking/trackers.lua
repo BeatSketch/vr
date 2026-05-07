@@ -2,9 +2,20 @@
 
 local M = {}
 
+local helpers = {}
+
+--- @class AngleList
+--- @field x integer
+--- @field y integer
+--- @field z integer
+
 --- The angle of the saber in relation to the default rotation
---- @type number In degrees
-M.angle = -20
+--- @type AngleList In degrees
+helpers.angles = {
+	x = -20,
+	y = 0,
+	z = 0,
+}
 
 local button_list = {
 	"trigger",
@@ -24,7 +35,7 @@ local button_list = {
 --- @param device "head" | "left" | "right"
 --- @param buttons button[]
 --- @return string[]
-local function get_down_buttons(device, buttons)
+function helpers.get_down_buttons(device, buttons)
 	local pressed = {}
 	local idx = 1
 
@@ -38,26 +49,65 @@ local function get_down_buttons(device, buttons)
 	return pressed
 end
 
+-- Pre-generate unit vectors
+local unit_vec_x = lovr.math.newVec3(1, 0, 0)
+local unit_vec_y = lovr.math.newVec3(0, 1, 0)
+local unit_vec_z = lovr.math.newVec3(0, 0, 1)
+--- Rotate a vector around an axis
+---@param axis "x" | "y" | "z" The axis to rotate it around
+---@param controller_quat Quat The tracked device's rotation
+---@param vec Vec3 The vector to rotate
+---@param angle integer Angle in degrees
+function helpers.rotate_vector_along_own_frame_axis(axis, controller_quat, vec, angle)
+	local axis_vec = (axis == "x" and unit_vec_x) or (axis == "y" and unit_vec_y or unit_vec_z)
+	local rot_axis = controller_quat:mul(axis_vec):normalize()
+	local rot = quat(angle / 180 * math.pi, rot_axis:unpack())
+	return rot:mul(vec)
+end
+
+--- Rotate a vector according to the configuration set for each angle
+---@param controller_quat Quat
+---@param vec Vec3
+function helpers.rotate_vec_according_to_config(controller_quat, vec)
+	---@type Vec3
+	local rotated = vec
+	if helpers.angles["x"] ~= 0 then
+		rotated = helpers.rotate_vector_along_own_frame_axis("x", controller_quat, vec, helpers.angles["x"])
+	end
+	if helpers.angles["y"] ~= 0 then
+		rotated = helpers.rotate_vector_along_own_frame_axis("y", controller_quat, vec, helpers.angles["y"])
+	end
+	if helpers.angles["z"] ~= 0 then
+		rotated = helpers.rotate_vector_along_own_frame_axis("z", controller_quat, vec, helpers.angles["z"])
+	end
+
+	return rotated
+end
+
+--- Set the rotation of the saber along its own axes (clockwise)
+---@param x integer Rotation along the controller's x axis
+---@param y integer Rotation along the controller's y axis
+---@param z integer Rotation along the controller's z axis
+function M.set_saber_angles(x, y, z)
+	helpers.angles.x = x
+	helpers.angles.y = y
+	helpers.angles.z = z
+end
+
 --- Get the tracked position of a hand
 --- @param hand hands The hand to get the data for
 --- @param dt number The delta time since last call
 --- @return PositionState
 function M.get_hand(hand, dt)
-	-- 1. Get vector
 	local dir = vec3(lovr.headset.getDirection(hand))
+	local controller_quat = quat(lovr.headset.getOrientation(hand))
 
-	-- 2. Create quaternion to rotate
-	local rot_axis_quat = quat(lovr.headset.getOrientation(hand))
-	local rot_axis = rot_axis_quat:mul(vec3(1, 0, 0)):normalize()
-	local rot = quat(M.angle / 180 * math.pi, rot_axis:unpack())
-
-	-- 3. Rotate the direction vector around the new vector with quat rot
 	return {
 		pos = vec3(lovr.headset.getPosition(hand)),
-		direction = rot:mul(dir),
-		angle = rot_axis_quat,
+		direction = helpers.rotate_vec_according_to_config(controller_quat, dir),
+		angle = controller_quat,
 		delta = dt,
-		buttons = get_down_buttons(hand, button_list),
+		buttons = helpers.get_down_buttons(hand, button_list),
 	}
 end
 
