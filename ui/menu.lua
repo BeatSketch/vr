@@ -49,12 +49,12 @@ function M.pause_menu_update()
 		pause_menu_quit_button:handler(function()
 			lovr.event.quit(0)
 		end)
-		tracking.handle_buttons({ "a", "b", "x", "y" }, function()
-			if not show_start_menu then
-				show_pause_menu = true
-			end
-		end)
 	end
+	tracking.handle_buttons({ "a", "b", "x", "y" }, function()
+		if not show_start_menu then
+			show_pause_menu = true
+		end
+	end)
 end
 
 return M
