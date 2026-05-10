@@ -2,9 +2,10 @@
 ## Renderer
 - [X] Sabers
 - [ ] Sabers: Rotatable in all directions
-- [ ] Tracking line (Saber tip? Controller position?)
+- [ ] Tracking line (Saber tip)
 - [ ] In-VR UI elements such as placed number of blocks, current blocks per minute, song position, pause menu (with seek to time, delete all future, resume)
 - [X] 4 lanes
+- [X] Grid
 - [ ] Add some animation for bpm?
 
 ## UI Library (in VR)
@@ -18,6 +19,7 @@
 ## Tracking
 - [ ] Assign tracking position to blocks
 - [ ] Grid system
+- [ ] Match exact Beat Saber grid size
 - [ ] Show lines for saber tip -> Discuss
 - [x] Implement saber tip computation -> pos + dir * len for each state
 
