@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# TODO: Make builds togglable
+platforms=$1
+
 # Build for GNU/Linux
 zip -9qr BeatSketch.lovr .
 cat /usr/bin/lovr BeatSketch.lovr > BeatSketch
