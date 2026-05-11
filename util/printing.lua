@@ -20,7 +20,7 @@ function M.print_table(t)
 					if type(value) == "table" then
 						out = out .. table_print_helper(value, idx + 1) .. "\n"
 					else
-						out = out .. (" "):rep((idx + 1) * 2) .. value .. "\n"
+						out = out .. (" "):rep((idx + 1) * 2) .. tostring(value) .. "\n"
 					end
 				end
 				return (" "):rep(idx * 2) .. "[\n" .. out .. (" "):rep(idx * 2) .. "]"
@@ -30,7 +30,7 @@ function M.print_table(t)
 					if type(value) == "table" then
 						out = out .. table_print_helper(value, idx + 1) .. "\n"
 					else
-						out = out .. (" "):rep((idx + 1) * 2) .. key .. ": " .. value .. "\n"
+						out = out .. (" "):rep((idx + 1) * 2) .. tostring(key) .. ": " .. tostring(value) .. "\n"
 					end
 				end
 				return (" "):rep(idx * 2) .. "{\n" .. out .. (" "):rep(idx * 2) .. "}"
@@ -38,7 +38,7 @@ function M.print_table(t)
 		end
 
 		print(table_print_helper(t, 0))
-    elseif type(t) == "number" or type(t) == "string" or type(t) == "boolean" then
+    elseif type(t) == "number" or type(t) == "string" or type(t) == "boolean" or type(t) == "userdata" then
         print(t)
     else
         print("UNSUPPORTED TYPE PASSED", type(t))

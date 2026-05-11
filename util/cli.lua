@@ -10,7 +10,7 @@ function M.parse_cli_opts()
 			key = key:sub(0, key:len() - 1)
 
 			-- 2 is actually correct here, because some weird lua thing (first char is actually idx 1)
-			local val = value:gmatch("=[0-9a-zA-Z-_]+")()
+			local val = value:gmatch("=.*")()
 			if val ~= nil and val:len() > 2 then
 				parsed_args[key] = val:sub(2)
 			end

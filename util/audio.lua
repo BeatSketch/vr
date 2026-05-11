@@ -7,10 +7,21 @@ local init = false
 --- Load the music file
 --- @param file string The audio file to load
 function M.load(file)
+	local f = io.open(file, "r")
+	if f then
+		M.load_blob(lovr.data.newBlob(f:read("a")))
+    else
+        error("Failed to load audio file")
+	end
+end
+
+--- Load the music file as a blob
+---@param blob Blob
+function M.load_blob(blob)
 	if init then
 		error("Audio Source already initialized")
 	end
-	AudioSource = lovr.audio.newSource(file, {
+	AudioSource = lovr.audio.newSource(blob, {
 		pitchable = false,
 		spatial = false,
 		decode = false,
@@ -26,6 +37,7 @@ function M.stop()
 	if is_playing then
 		is_playing = false
 		pos = M.get_pos()
+        AudioSource:pause()
 	end
 end
 
@@ -34,6 +46,7 @@ function M.start()
 	if not is_playing and init then
 		is_playing = true
 		start = lovr.timer.getTime()
+        AudioSource:play()
 	end
 end
 

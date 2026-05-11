@@ -4,9 +4,11 @@ local render = require("ui.render")
 local ipc = require("util.ipc")
 local cli = require("util.cli")
 local printing = require("util.printing")
+local audio = require("util.audio")
 
 print("CLI ARGUMENTS:")
-printing.print_table(cli.parse_cli_opts())
+local args = cli.parse_cli_opts()
+printing.print_table(args)
 
 --[[
  ___               _   ___   _           _         _
@@ -29,13 +31,20 @@ function lovr.conf(t)
 end
 
 -- ┌                                               ┐
+-- │        Load audio file (and textures)         │
+-- └                                               ┘
+function lovr.load()
+	audio.load(args["song"])
+end
+
+-- ┌                                               ┐
 -- │                    Drawing                    │
 -- └                                               ┘
 -- Drawing the screen is called once every frame
 --- @param pass Pass
 function lovr.draw(pass)
 	sabers.draw(pass)
-    render.draw(pass)
+	render.draw(pass)
 end
 
 -- ┌                                               ┐
@@ -44,14 +53,14 @@ end
 -- Tracking and the like get continuous updates
 function lovr.update(delta_time)
 	tracking.update_hands(delta_time)
-    render.update()
-    ipc.send_json(tracking.get_for_transmit())
-    -- NOTE: This works, sorta well
-    -- printing.print_table(ipc.get_data())
+	render.update()
+	ipc.send_json(tracking.get_for_transmit())
+	-- NOTE: This works, sorta well
+	-- printing.print_table(ipc.get_data())
 end
 
 ipc.init(true)
 
 -- TODO: Possibly a separate desktop mirror
--- (to draw it from 3rd person instead, could be a good effect for demo, 
+-- (to draw it from 3rd person instead, could be a good effect for demo,
 -- and doesn't look to be hard: https://lovr.org/docs/Flatscreen/Spectator_Camera)
