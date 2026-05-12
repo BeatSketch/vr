@@ -62,6 +62,7 @@ end
 --- Seek to playback position
 --- @param position number The position to seek to
 function M.seek(position)
+    -- TODO: Update current pos
 	AudioSource:seek(math.max(math.min(position, AudioSource:getDuration()), 0))
 end
 
