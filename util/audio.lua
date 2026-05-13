@@ -7,11 +7,15 @@ local init = false
 --- Load the music file
 --- @param file string The audio file to load
 function M.load(file)
+    if file:sub(0, 1) == '"' then
+        file = file:sub(2, file:len() - 1)
+    end
+    print(file)
 	local f = io.open(file, "r")
 	if f then
 		M.load_blob(lovr.data.newBlob(f:read("a")))
-    else
-        error("Failed to load audio file")
+	else
+		error("Failed to load audio file '" .. file .. "'")
 	end
 end
 
@@ -37,7 +41,7 @@ function M.stop()
 	if is_playing then
 		is_playing = false
 		pos = M.get_pos()
-        AudioSource:pause()
+		AudioSource:pause()
 	end
 end
 
@@ -46,7 +50,7 @@ function M.start()
 	if not is_playing and init then
 		is_playing = true
 		start = lovr.timer.getTime()
-        AudioSource:play()
+		AudioSource:play()
 	end
 end
 
@@ -62,7 +66,7 @@ end
 --- Seek to playback position
 --- @param position number The position to seek to
 function M.seek(position)
-    -- TODO: Update current pos
+	-- TODO: Update current pos
 	AudioSource:seek(math.max(math.min(position, AudioSource:getDuration()), 0))
 end
 
