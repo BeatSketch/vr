@@ -15,12 +15,14 @@ function M.draw(pass)
 	grid.draw_grid(pass)
 	menu.pause_menu_draw(pass)
 	menu.start_menu_draw(pass)
+    menu.end_menu_draw(pass)
 end
 
 --- Update the state (from lovr.update function)
 function M.update()
 	menu.pause_menu_update()
 	menu.start_menu_update()
+    menu.end_menu_update()
 end
 
 return M

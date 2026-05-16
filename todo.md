@@ -25,7 +25,7 @@
 ## Other
 - [ ] Seeking back in the song (when? After completion or in pause menu?
     If in pause menu, need to make sure we have the data ready (or tell user to wait a short while when user activates seek mode, so we can do the processing))
-- [ ] Completion menu -> Buttons to ask user if they want to quit or preview the map
+- [X] Completion menu -> Buttons to ask user if they want to quit or preview the map
 - [ ] Load already existing map
 - [ ] Mac build
 
