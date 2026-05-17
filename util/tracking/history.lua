@@ -62,12 +62,15 @@ end
 function Tracking:hands(left, right)
 	self.data.left[self.idx.left] = left
 	self.data.right[self.idx.right] = right
+    self.idx.left = self.idx.left + 1
+    self.idx.right = self.idx.right + 1
 end
 
 --- Store the headset position
 --- @param head PositionState The tracking data for the headset to store
 function Tracking:store_head(head)
 	self.data.head[self.idx.head] = head
+    self.idx.head = self.idx.head + 1
 end
 
 --- Save the tracking data to a json file
