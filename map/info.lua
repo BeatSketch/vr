@@ -15,7 +15,7 @@ local json = require("json")
 --- @field songDuration number Song's duration in seconds
 --- @field audioDataFilename string The filename for the audio data
 --- @field bpm number The default (or most common) bpm (displayed in UI)
---- @field lufs number The loudness of the sond (defaults to zero as in no change)
+--- @field lufs number The loudness of the song (defaults to zero as in no change)
 --- @field previewStartTime number The point in the song in which the preview in the menu is played
 --- @field previewDuration number How long that preview is played for
 

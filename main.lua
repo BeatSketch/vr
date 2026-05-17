@@ -1,3 +1,4 @@
+local state = require("core.state")
 local sabers = require("ui.controllers.sabers")
 local tracking = require("util.tracking.tracking")
 local render = require("ui.render")
@@ -8,6 +9,9 @@ local audio = require("util.audio")
 
 print("CLI ARGUMENTS:")
 local args = cli.parse_cli_opts()
+
+args["song"] = "C:/projects/vr/test/RideOn.ogg"
+
 printing.print_table(args)
 
 --[[
@@ -34,7 +38,7 @@ end
 -- │        Load audio file (and textures)         │
 -- └                                               ┘
 function lovr.load()
-	audio.load(args["song"])
+	--audio.load(args["song"])
 end
 
 -- ┌                                               ┐
@@ -54,7 +58,8 @@ end
 function lovr.update(delta_time)
 	tracking.update_hands(delta_time)
 	render.update()
-	ipc.send_json(tracking.get_for_transmit())
+	state.update_disp(delta_time)
+	-- ipc.send_json(tracking.get_for_transmit())
 	-- NOTE: This works, sorta well
 	-- printing.print_table(ipc.get_data())
 end

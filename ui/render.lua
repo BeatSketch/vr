@@ -7,12 +7,17 @@ local M = {}
 -- NOTE: Can use the line function directly to draw the history (can add any number of points using it in one go)
 -- pass:line(position, tip)
 
+--- Show full beatnote grid
+M.show_grid = true
+
 --- Draw the UI
 --- @param pass Pass
 function M.draw(pass)
 	lanes.draw_lanes(pass)
     platform.draw_platform(pass)
-	grid.draw_grid(pass)
+	if (M.show_grid) then
+		grid.draw_grid(pass)
+	end
 	menu.pause_menu_draw(pass)
 	menu.start_menu_draw(pass)
     menu.end_menu_draw(pass)
