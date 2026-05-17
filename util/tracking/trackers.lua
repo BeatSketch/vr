@@ -99,11 +99,11 @@ end
 --- @param dt number The delta time since last call
 --- @return PositionState
 function M.get_hand(hand, dt)
-	local dir = vec3(lovr.headset.getDirection(hand))
+	local dir = lovr.math.newVec3(lovr.headset.getDirection(hand))
 	local controller_quat = quat(lovr.headset.getOrientation(hand))
 
 	return {
-		pos = vec3(lovr.headset.getPosition(hand)),
+		pos = lovr.math.newVec3(lovr.headset.getPosition(hand)),
 		direction = helpers.rotate_vec_according_to_config(controller_quat, dir),
 		angle = controller_quat,
 		delta = dt,

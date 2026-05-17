@@ -38,6 +38,7 @@ end
 -- │        Load audio file (and textures)         │
 -- └                                               ┘
 function lovr.load()
+	-- Comment this line to test VR app without running Launcher (IPC)
 	--audio.load(args["song"])
 end
 
@@ -58,7 +59,7 @@ end
 function lovr.update(delta_time)
 	tracking.update_hands(delta_time)
 	render.update()
-	state.update_disp(delta_time)
+	state.update(delta_time)
 	-- ipc.send_json(tracking.get_for_transmit())
 	-- NOTE: This works, sorta well
 	-- printing.print_table(ipc.get_data())

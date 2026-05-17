@@ -1,5 +1,7 @@
+local tracking = require("util.tracking.tracking")
+local Tracking = require("util.tracking.history")
 local M = {}
---- Global data for the vr application
+--- Global data for the vr application, use mutators whenever possible
 
 --- Current vr app mode
 --- @type "r" | "v" | "m"
@@ -33,6 +35,18 @@ M.disp = 0
 --- @type number 
 M.prev_disp = 0
 
+--- Current tracking history
+--- @type Tracking
+M.history = Tracking:new()
+
+--- Displacement data for tracking history
+--- @type number[]
+M.history_disp = {}
+
+--- Tracking frequency: Maximum amount of hand tracking points per second
+--- @type number
+M.tracking_freq = 20
+
 --- Set current vr app mode
 --- @param new_mode "r" | "v" | "m" record, view or menu
 M.set_mode = function(new_mode)
@@ -59,6 +73,13 @@ M.set_bpm = function(bpm)
     M.bpm = bpm
 end
 
+--- Groups all state update functions, is passed to lovr.update
+--- @param dt number delta time
+M.update = function(dt)
+    M.update_disp(dt)
+    M.update_history(dt)
+end
+
 --- Update current displacement
 --- @param dt number deltatime
 M.update_disp = function(dt)
@@ -74,6 +95,23 @@ end
 M.reset_disp = function()
     M.disp = 0
     M.prev_disp = 0
+end
+
+
+local track_delta = 0
+--- Try to insert current position of hands into history (see `state.tracking_freq`)
+--- @param dt number delta time
+M.update_history = function(dt)
+    -- Only track if mode is set to recording
+    if (M.mode ~= 'r') then return end
+
+    track_delta = track_delta + dt
+    if (track_delta >= 1/M.tracking_freq) then
+        local hands = tracking.get_hands()
+        M.history:hands(hands.left, hands.right) 
+        M.history_disp[#M.history_disp+1] = M.disp
+        track_delta = 0
+    end
 end
 
 return M

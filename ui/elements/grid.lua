@@ -4,7 +4,7 @@ local M = {}
 
 --- Draw a grid for possible colornote positions
 --- @param pass Pass
-M.draw_grid = function(pass)
+M.grid = function(pass)
     local m, n = 3, 4
     --- Amount of grid layers
     local d = math.floor(state.bpm * (state.len / 60)) * state.beat_div

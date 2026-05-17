@@ -49,6 +49,12 @@ function M.get_hands()
 	}
 end
 
+--- Get the position state of the headset
+---@return PositionState
+function M.get_head()
+	return tracker_states.head
+end
+
 --- Execute a callback if a button is pressed
 ---@param buttons button[] The button to check for
 ---@param cb function The callback to execute if the button is pressed
@@ -72,12 +78,6 @@ function M.handle_button(button, cb)
 			cb()
 		end
 	end
-end
-
---- Get the position state of the headset
----@return PositionState
-function M.get_head()
-	return tracker_states.head
 end
 
 function M.get_for_transmit()

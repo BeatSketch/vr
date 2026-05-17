@@ -30,7 +30,7 @@ Should be included\
 ## Tracking
 - [X] **Grid system**
 - [ ] **Match exact Beat Saber grid size** -> I messaged BeatGames, so we can do that once I got a response
-- [ ] **Show lines for saber tip**
+- [X] **Show lines for hands** (need to be corrected for saber tips)
 - [x] Implement saber tip computation -> pos + dir * len for each state
 
 ## Other
