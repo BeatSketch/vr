@@ -10,6 +10,7 @@ local M = {}
 
 --- Show full beatnote grid
 M.show_grid = true
+M.show_hand_lines = true
 
 --- Draw the UI
 --- @param pass Pass
@@ -20,7 +21,9 @@ function M.draw(pass)
 		if M.show_grid then
 			grid.grid(pass)
 		end
-		handlines.draw(pass)
+		if M.show_hand_lines then
+			handlines.draw(pass)
+		end
 	else
 		menu.pause_menu_draw(pass)
 		menu.start_menu_draw(pass)

@@ -14,9 +14,9 @@ local args = cli.parse_cli_opts()
 printing.print(args)
 local launch_with_launcher = args["launcher"] and args["launcher"] == "true"
 if not args["song"] then
-    local cwd = os.getenv("PWD")
-    args["song"] = cwd .. "/test/audio.mp3"
-    args["mirror"] = "true"
+	local cwd = os.getenv("PWD")
+	args["song"] = cwd .. "/test/audio.mp3"
+	args["mirror"] = "true"
 end
 
 --[[
@@ -36,6 +36,7 @@ function lovr.conf(t)
 	-- We can also start the headset session later on (by calling lovr.headset.start and do a desktop UI first)
 	-- I have yet to figure out the resizing and stuff
 	t.headset.start = true
+	t.identity = "beatsketch"
 	t.window.width = 1920
 	t.window.resizable = true
 end

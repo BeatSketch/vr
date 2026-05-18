@@ -8,6 +8,11 @@ local M = {}
 --- @type "r" | "v" | "m"
 M.mode = "m"
 
+M.signature = {
+	top = 4,
+	bottom = 4,
+}
+
 --- Current Song's bpm
 --- @type number
 M.bpm = 120
@@ -16,11 +21,12 @@ M.bpm = 120
 --- @type 1 | 2 | 4 | 8 | 16
 M.beat_div = 4
 
+-- TODO: Get from audio.get_duration()
 --- Current Song's length in seconds
 --- @type number
 M.len = 160
 
---- How fast notes move towards user
+--- How fast notes move towards user (NJS)
 --- @type number
 M.spd = 10
 
@@ -44,7 +50,7 @@ M.history = Tracking:new()
 --- @type number[]
 M.history_disp = {}
 
---- Tracking frequency: Maximum amount of hand tracking points per second
+--- Tracking frequency: Maximum number of hand tracking points per second
 --- @type number
 M.tracking_freq = 20
 
@@ -84,6 +90,8 @@ end
 --- Update current displacement
 --- @param dt number deltatime
 M.update_disp = function(dt)
+	-- FIXME: This may not be accurate, can instead use the audio
+	-- module's tracker, which is accurate
 	M.time = M.time + dt
 	if M.mode == "r" then
 		M.disp = M.disp + (dt * M.spd)
@@ -101,6 +109,8 @@ end
 
 -- FIXME: Can use audio playback position instead of this
 local track_delta = 0
+local count = 0
+local target = 1 / M.tracking_freq
 --- Try to insert current position of hands into history (see `state.tracking_freq`)
 --- @param dt number delta time
 M.update_history = function(dt)
@@ -110,10 +120,11 @@ M.update_history = function(dt)
 	end
 
 	track_delta = track_delta + dt
-	if track_delta >= 1 / M.tracking_freq then
+	if track_delta >= target then
 		local hands = tracking.get_hands()
 		M.history:hands(hands.left, hands.right)
-		M.history_disp[#M.history_disp + 1] = M.disp
+		M.history_disp[count + 1] = M.disp
+		count = count + 1
 		track_delta = 0
 	end
 end
