@@ -12,7 +12,7 @@ local args = cli.parse_cli_opts()
 
 args["song"] = "C:/projects/vr/test/RideOn.ogg"
 
-printing.print_table(args)
+printing.print(args)
 
 --[[
  ___               _   ___   _           _         _
@@ -38,8 +38,11 @@ end
 -- │        Load audio file (and textures)         │
 -- └                                               ┘
 function lovr.load()
-	-- Comment this line to test VR app without running Launcher (IPC)
-	--audio.load(args["song"])
+	if args["song"] then
+		audio.load(args["song"])
+    else
+        print("\n[WARNING] No song specified, thus no audio was loaded")
+	end
 end
 
 -- ┌                                               ┐
@@ -57,7 +60,7 @@ end
 -- └                                               ┘
 -- Tracking and the like get continuous updates
 function lovr.update(delta_time)
-	tracking.update_hands(delta_time)
+	tracking.update_hands()
 	render.update()
 	state.update(delta_time)
 	-- ipc.send_json(tracking.get_for_transmit())

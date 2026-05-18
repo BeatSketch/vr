@@ -11,7 +11,7 @@ Should be included\
 - [X] Sabers: Rotatable in all directions
 - [X] 4 lanes
 - [X] Grid
-- [ ] Add some animation for bpm? (what does this mean?)
+- [ ] Add some animation for bpm? (what does this mean?) -> Blinking light / lines, etc
 - [ ] *Materials*
 - [ ] *More animations*
 
