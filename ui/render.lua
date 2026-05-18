@@ -15,21 +15,24 @@ M.show_grid = true
 --- @param pass Pass
 function M.draw(pass)
 	lanes.draw(pass)
-    platform.draw(pass)
-	handlines.draw(pass)
-	if (M.show_grid) then
-		grid.grid(pass)
+	platform.draw(pass)
+	if not menu.get_menu_open() then
+		if M.show_grid then
+			grid.grid(pass)
+		end
+		handlines.draw(pass)
+	else
+		menu.pause_menu_draw(pass)
+		menu.start_menu_draw(pass)
+		menu.end_menu_draw(pass)
 	end
-	menu.pause_menu_draw(pass)
-	menu.start_menu_draw(pass)
-    menu.end_menu_draw(pass)
 end
 
 --- Update the state (from lovr.update function)
 function M.update()
 	menu.pause_menu_update()
 	menu.start_menu_update()
-    menu.end_menu_update()
+	menu.end_menu_update()
 end
 
 return M

@@ -12,6 +12,12 @@ local audio = require("util.audio")
 print("CLI ARGUMENTS:")
 local args = cli.parse_cli_opts()
 printing.print(args)
+local launch_with_launcher = args["launcher"] and args["launcher"] == "true"
+if not args["song"] then
+    local cwd = os.getenv("PWD")
+    args["song"] = cwd .. "/test/audio.mp3"
+    args["mirror"] = "true"
+end
 
 --[[
  ___               _   ___   _           _         _
@@ -51,15 +57,15 @@ end
 -- │                    Drawing                    │
 -- └                                               ┘
 -- Drawing the screen is called once every frame
---- @param pass Pass
 function lovr.draw(pass)
 	sabers.draw(pass)
 	render.draw(pass)
 end
 
+-- TODO: Possibly a separate desktop mirror
+-- (to draw it from 3rd person instead, could be a good effect for demo,
+-- and doesn't look to be hard: https://lovr.org/docs/Flatscreen/Spectator_Camera)
 if not args["mirror"] or args["mirror"] == "false" then
-	--- Draws the desktop screen
-	---@param pass Pass
 	function lovr.mirror(pass)
 		pass:transform(view)
 		sabers.draw(pass)
@@ -76,13 +82,11 @@ function lovr.update(delta_time)
 	tracking.update_hands()
 	render.update()
 	state.update(delta_time)
-	-- ipc.send_json(tracking.get_for_transmit())
+	if launch_with_launcher then
+		ipc.send_json(tracking.get_for_transmit())
+	end
 	-- NOTE: This works, sorta well
 	-- printing.print_table(ipc.get_data())
 end
 
-ipc.init(true)
-
--- TODO: Possibly a separate desktop mirror
--- (to draw it from 3rd person instead, could be a good effect for demo,
--- and doesn't look to be hard: https://lovr.org/docs/Flatscreen/Spectator_Camera)
+ipc.init(launch_with_launcher)
