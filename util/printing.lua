@@ -2,10 +2,20 @@ local M = {}
 
 --- Print a table (recursively)
 --- @param t any the table to print
-function M.print_table(t)
+function M.print(t)
 	if t == nil then
 		print("{}")
 		return
+	end
+
+	local function non_table_helper(data)
+		if type(data) == "number" or type(data) == "string" or type(data) == "boolean" then
+			return tostring(data)
+		elseif type(data) == "userdata" then
+			return "<USERDATA>"
+		else
+            return "<UNKNOWN TYPE, " .. type(data) .. ">"
+		end
 	end
 
 	if type(t) == "table" then
@@ -20,7 +30,7 @@ function M.print_table(t)
 					if type(value) == "table" then
 						out = out .. table_print_helper(value, idx + 1) .. "\n"
 					else
-						out = out .. (" "):rep((idx + 1) * 2) .. tostring(value) .. "\n"
+						out = out .. (" "):rep((idx + 1) * 2) .. non_table_helper(value) .. "\n"
 					end
 				end
 				return (" "):rep(idx * 2) .. "[\n" .. out .. (" "):rep(idx * 2) .. "]"
@@ -30,7 +40,7 @@ function M.print_table(t)
 					if type(value) == "table" then
 						out = out .. table_print_helper(value, idx + 1) .. "\n"
 					else
-						out = out .. (" "):rep((idx + 1) * 2) .. tostring(key) .. ": " .. tostring(value) .. "\n"
+						out = out .. (" "):rep((idx + 1) * 2) .. non_table_helper(key) .. ": " .. non_table_helper(value) .. "\n"
 					end
 				end
 				return (" "):rep(idx * 2) .. "{\n" .. out .. (" "):rep(idx * 2) .. "}"
@@ -38,10 +48,8 @@ function M.print_table(t)
 		end
 
 		print(table_print_helper(t, 0))
-    elseif type(t) == "number" or type(t) == "string" or type(t) == "boolean" or type(t) == "userdata" then
-        print(t)
-    else
-        print("UNSUPPORTED TYPE PASSED", type(t))
+	else
+		print(non_table_helper(t))
 	end
 end
 
