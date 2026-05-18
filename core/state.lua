@@ -30,6 +30,10 @@ M.len = 160
 --- @type number
 M.spd = 10
 
+--- Speed multiplier when moving using the controller
+--- @type number
+M.seek_speed = 2
+
 --- Current timestamp within selected song
 --- @type number
 M.time = 0
@@ -97,6 +101,9 @@ M.update_disp = function(dt)
 		M.disp = M.disp + (dt * M.spd)
 	elseif M.mode == "v" then
 		--- move via controller input
+		M.disp = M.disp
+			+ dt * tracking.get_thumbstick_axes("left").y * M.seek_speed
+			+ dt * tracking.get_thumbstick_axes("right").y * M.seek_speed
 		printing.print(tracking.get_thumbstick_axes("left"))
 	end
 end

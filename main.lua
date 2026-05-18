@@ -1,11 +1,10 @@
-local state = require("core.state")
 local sabers = require("ui.controllers.sabers")
-local tracking = require("util.tracking.tracking")
 local render = require("ui.render")
-local ipc = require("util.ipc")
+local ipc = require("util.ipc.main")
 local cli = require("util.cli")
 local printing = require("util.printing")
 local audio = require("util.audio")
+local updates = require("core.updates")
 
 -- CLI Argument style is key=val, so for song e.g.
 -- song=<PATH>
@@ -41,8 +40,6 @@ function lovr.conf(t)
 	t.window.resizable = true
 end
 
-local x, y, z = -3, 3, 3
-local view = lovr.math.newMat4():lookAt(vec3(x, y, z), vec3(0, 0, 0))
 -- ┌                                               ┐
 -- │        Load audio file (and textures)         │
 -- └                                               ┘
@@ -63,6 +60,8 @@ function lovr.draw(pass)
 	render.draw(pass)
 end
 
+local x, y, z = -3, 3, 3
+local view = lovr.math.newMat4():lookAt(vec3(x, y, z), vec3(0, 0, 0))
 -- TODO: Possibly a separate desktop mirror
 -- (to draw it from 3rd person instead, could be a good effect for demo,
 -- and doesn't look to be hard: https://lovr.org/docs/Flatscreen/Spectator_Camera)
@@ -80,14 +79,7 @@ end
 -- └                                               ┘
 -- Tracking and the like get continuous updates
 function lovr.update(delta_time)
-	tracking.update_hands()
-	render.update()
-	state.update(delta_time)
-	if launch_with_launcher then
-		ipc.send_json(tracking.get_for_transmit())
-	end
-	-- NOTE: This works, sorta well
-	-- printing.print_table(ipc.get_data())
+	updates.update_handler(delta_time, launch_with_launcher)
 end
 
 ipc.init(launch_with_launcher)

@@ -1,6 +1,8 @@
 -- Abstraction for inter-process communication with the python-based launcher, which also does the processing
 local json = require("json")
 
+--- IPC abstraction utilities
+--- Can be used to communicate with the launcher
 local M = {}
 local allow_get = false
 local init_done = false
