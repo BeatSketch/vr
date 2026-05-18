@@ -2,15 +2,46 @@ local tracking = require("util.tracking.tracking")
 local Tracking = require("util.tracking.history")
 local printing = require("util.printing")
 local M = {}
---- Global data for the vr application, use mutators whenever possible
+--- Global data for the vr application, use setters whenever possible
+
+--- @class Sizes
+--- @field h number
+--- @field w number
+
+--- @class Offsets
+--- @field x number
+--- @field y number
 
 --- Current vr app mode
 --- @type "r" | "v" | "m"
 M.mode = "m"
 
+--- The time signature for the song
+--- @type table<"top" | "bottom", integer>
 M.signature = {
 	top = 4,
 	bottom = 4,
+}
+
+--- The distance between time units on the grid
+M.dist = 0
+
+--- The sizes of the grid in each direction
+--- @type Sizes
+M.size = {
+	h = 0.666,
+	w = 0.666,
+}
+
+--- The sizes of the blocks in each direction
+--- @type number
+M.block_size = 0.3
+
+--- The grid offsets in each direction
+--- @type Offsets
+M.offsets = {
+	x = -1.333,
+	y = 0,
 }
 
 --- Current Song's bpm

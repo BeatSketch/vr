@@ -5,6 +5,7 @@ local cli = require("util.cli")
 local printing = require("util.printing")
 local audio = require("util.audio")
 local updates = require("core.updates")
+local blocks = require("ui.elements.blocks")
 
 -- CLI Argument style is key=val, so for song e.g.
 -- song=<PATH>
@@ -49,6 +50,7 @@ function lovr.load()
 	else
 		print("\n[WARNING] No song specified, thus no audio was loaded")
 	end
+	blocks.load_texture()
 end
 
 -- ┌                                               ┐
@@ -58,6 +60,17 @@ end
 function lovr.draw(pass)
 	sabers.draw(pass)
 	render.draw(pass)
+	blocks.draw(pass)
+end
+
+for i = 0, 7, 1 do
+	blocks.add_block({
+		x = 2,
+		y = 2,
+		beat = 0.5 * i,
+		hand = "left",
+		orientation = i,
+	})
 end
 
 local x, y, z = -3, 3, 3
