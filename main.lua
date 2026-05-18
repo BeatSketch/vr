@@ -7,11 +7,10 @@ local cli = require("util.cli")
 local printing = require("util.printing")
 local audio = require("util.audio")
 
+-- CLI Argument style is key=val, so for song e.g.
+-- song=<PATH>
 print("CLI ARGUMENTS:")
 local args = cli.parse_cli_opts()
-
-args["song"] = "C:/projects/vr/test/RideOn.ogg"
-
 printing.print(args)
 
 --[[
@@ -31,17 +30,20 @@ function lovr.conf(t)
 	-- We can also start the headset session later on (by calling lovr.headset.start and do a desktop UI first)
 	-- I have yet to figure out the resizing and stuff
 	t.headset.start = true
+	t.window.width = 1920
 	t.window.resizable = true
 end
 
+local x, y, z = -3, 3, 3
+local view = lovr.math.newMat4():lookAt(vec3(x, y, z), vec3(0, 0, 0))
 -- ┌                                               ┐
 -- │        Load audio file (and textures)         │
 -- └                                               ┘
 function lovr.load()
 	if args["song"] then
 		audio.load(args["song"])
-    else
-        print("\n[WARNING] No song specified, thus no audio was loaded")
+	else
+		print("\n[WARNING] No song specified, thus no audio was loaded")
 	end
 end
 
@@ -53,6 +55,17 @@ end
 function lovr.draw(pass)
 	sabers.draw(pass)
 	render.draw(pass)
+end
+
+if not args["mirror"] or args["mirror"] == "false" then
+	--- Draws the desktop screen
+	---@param pass Pass
+	function lovr.mirror(pass)
+		pass:transform(view)
+		sabers.draw(pass)
+		render.draw(pass)
+		return false
+	end
 end
 
 -- ┌                                               ┐
