@@ -30,9 +30,11 @@ local button_list = {
 }
 
 --- @alias button "trigger" | "thumbrest" | "grip" | "menu" | "a" | "b" | "x" | "y" | "nib"
+--- @alias controllers "left" | "right"
+--- @alias device "head" | controllers
 
 --- Get all buttons on the device that are pressed
---- @param device "head" | "left" | "right"
+--- @param device device
 --- @param buttons button[]
 --- @return string[]
 function helpers.get_down_buttons(device, buttons)
@@ -53,6 +55,7 @@ end
 local unit_vec_x = lovr.math.newVec3(1, 0, 0)
 local unit_vec_y = lovr.math.newVec3(0, 1, 0)
 local unit_vec_z = lovr.math.newVec3(0, 0, 1)
+
 --- Rotate a vector around an axis
 ---@param axis "x" | "y" | "z" The axis to rotate it around
 ---@param controller_quat Quat The tracked device's rotation
@@ -96,9 +99,9 @@ end
 
 --- Get the tracked position of a hand
 --- @param hand hands The hand to get the data for
---- @param dt number The delta time since last call
+--- @param time number The current time
 --- @return PositionState
-function M.get_hand(hand, dt)
+function M.get_hand(hand, time)
 	local dir = lovr.math.newVec3(lovr.headset.getDirection(hand))
 	local controller_quat = quat(lovr.headset.getOrientation(hand))
 
@@ -106,7 +109,7 @@ function M.get_hand(hand, dt)
 		pos = lovr.math.newVec3(lovr.headset.getPosition(hand)),
 		direction = helpers.rotate_vec_according_to_config(controller_quat, dir),
 		angle = controller_quat,
-		delta = dt,
+		timestamp = time,
 		buttons = helpers.get_down_buttons(hand, button_list),
 	}
 end

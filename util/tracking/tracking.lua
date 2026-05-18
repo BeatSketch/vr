@@ -2,36 +2,54 @@ local trackers = require("util.tracking.trackers")
 local audio = require("util.audio")
 local M = {}
 
---- @type PositionStates
+--- @class AxisState
+--- @field x number x value of the axis of the analog device
+--- @field y number y value of the axis of the analog device
+
+--- @class TrackerStates
+--- @field head PositionState
+--- @field left PositionState
+--- @field right PositionState
+
+--- Returns the current position of the thumbstick
+---@param device controllers
+function M.get_thumbstick_axes(device)
+	local x, y = lovr.headset.getAxis(device, "thumbstick")
+	return {
+		x = x,
+		y = y,
+	}
+end
+
+--- @type TrackerStates
 local tracker_states = {
 	head = {
 		pos = lovr.math.newVec3(0, 0, 0),
 		direction = lovr.math.newVec3(0, 0, 0),
 		angle = lovr.math.newQuat(0, 0, 0, 1),
-		delta = 0,
+		timestamp = 0,
 		buttons = {},
 	},
 	left = {
 		pos = lovr.math.newVec3(0, 0, 0),
 		direction = lovr.math.newVec3(0, 0, 0),
 		angle = lovr.math.newQuat(0, 0, 0, 1),
-		delta = 0,
+		timestamp = 0,
 		buttons = {},
 	},
 	right = {
 		pos = vec3(0, 0, 0),
 		direction = vec3(0, 0, 0),
 		angle = quat(0, 0, 0, 1),
-		delta = 0,
+		timestamp = 0,
 		buttons = {},
 	},
 }
 
 --- Store the positions for the hands
---- @param dt number The time since the last call
-function M.update_hands(dt)
-	tracker_states.left = trackers.get_hand("left", dt)
-	tracker_states.right = trackers.get_hand("right", dt)
+function M.update_hands()
+	tracker_states.left = trackers.get_hand("left", audio.get_pos())
+	tracker_states.right = trackers.get_hand("right", audio.get_pos())
 end
 
 --- Store the position for the headset
@@ -80,57 +98,67 @@ function M.handle_button(button, cb)
 	end
 end
 
+--- Get the current state in transmittable form
+---@return table
 function M.get_for_transmit()
+	return M.get_for_transmit_from_state(tracker_states, not audio.is_playing())
+end
+
+--- Transform the tracker state into a state sendable to the launcher
+---@param state TrackerStates
+---@param paused boolean If the recording was paused
+---@return table
+function M.get_for_transmit_from_state(state, paused)
 	return {
 		left = {
-			timestamp = audio.get_pos(),
+			timestamp = state.left.timestamp,
 			pos = {
-				tracker_states.left.pos:unpack(),
+				state.left.pos:unpack(),
 			},
 			direction = {
-				tracker_states.left.direction:unpack(),
+				state.left.direction:unpack(),
 			},
 			quat = {
-				tracker_states.left.angle:unpack(),
+				state.left.angle:unpack(),
 			},
 			tip = {
-				(tracker_states.left.pos + tracker_states.left.direction):unpack(),
+				(state.left.pos + state.left.direction):unpack(),
 			},
-			buttons = tracker_states.left.buttons,
+			buttons = state.left.buttons,
 		},
 		right = {
-			timestamp = audio.get_pos(),
+			timestamp = state.right.timestamp,
 			pos = {
-				tracker_states.right.pos:unpack(),
+				state.right.pos:unpack(),
 			},
 			direction = {
-				tracker_states.right.direction:unpack(),
+				state.right.direction:unpack(),
 			},
 			quat = {
-				tracker_states.right.angle:unpack(),
+				state.right.angle:unpack(),
 			},
 			tip = {
-				(tracker_states.right.pos + tracker_states.left.direction):unpack(),
+				(state.right.pos + state.left.direction):unpack(),
 			},
-			buttons = tracker_states.right.buttons,
+			buttons = state.right.buttons,
 		},
 		head = {
-			timestamp = audio.get_pos(),
+			timestamp = state.head.timestamp,
 			pos = {
-				tracker_states.head.pos:unpack(),
+				state.head.pos:unpack(),
 			},
 			direction = {
-				tracker_states.head.direction:unpack(),
+				state.head.direction:unpack(),
 			},
 			quat = {
-				tracker_states.head.angle:unpack(),
+				state.head.angle:unpack(),
 			},
 			tip = {
-				(tracker_states.head.pos + tracker_states.head.direction):unpack(),
+				(state.head.pos + state.head.direction):unpack(),
 			},
-			buttons = tracker_states.head.buttons,
+			buttons = state.head.buttons,
 		},
-		paused = not audio.is_playing(),
+		paused = paused,
 	}
 end
 
