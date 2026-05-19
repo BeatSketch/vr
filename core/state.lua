@@ -35,7 +35,7 @@ M.size = {
 
 --- The sizes of the blocks in each direction
 --- @type number
-M.block_size = 0.3
+M.block_size = 0.5
 
 --- The grid offsets in each direction
 --- @type Offsets

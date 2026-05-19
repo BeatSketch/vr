@@ -46,8 +46,8 @@ function M.draw(pass)
 
 		-- TODO: Update the sizing
 		pass:box(
-			state.offsets.x + block.x * state.size.w - state.size.w * 0.5,
-			state.offsets.y + block.y * state.size.h - state.size.h * 0.5,
+			state.offsets.x + block.x * state.size.w + state.size.w * 0.5,
+			state.offsets.y + block.y * state.size.h + state.size.h * 0.5,
 			pos,
 			state.block_size,
 			state.block_size,

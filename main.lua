@@ -67,7 +67,7 @@ for i = 0, 7, 1 do
 	blocks.add_block({
 		x = 2,
 		y = 2,
-		beat = 0.5 * i,
+		beat = 0.5 * i + 0.5,
 		hand = "left",
 		orientation = i,
 	})
