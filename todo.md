@@ -17,7 +17,7 @@ Should be included\
 
 ## UI Library (in VR)
 - [X] Buttons
-- [ ] Text
+- [ ] **Menus?**
 
 ## UX
 - [ ] Grid: tie visibility to a hotkey or menu option (use `render.show_grid`)
@@ -29,7 +29,7 @@ Should be included\
 
 ## Tracking
 - [X] **Grid system**
-- [ ] **Match exact Beat Saber grid size** -> I messaged BeatGames, so we can do that once I got a response
+- [X] **Match exact Beat Saber grid size** -> I messaged BeatGames, so we can do that once I got a response
 - [X] **Show lines for hands** (need to be corrected for saber tips)
 - [x] Implement saber tip computation -> pos + dir * len for each state
 
@@ -41,9 +41,10 @@ Should be included\
 - [X] Completion menu -> Buttons to ask user if they want to quit or preview the map
 - [ ] Load already existing map
 - [ ] *Mac build*
-- [ ] *Recording*\
+- [ ] *Rerecording*\
     After completion: User can seek to a previous location and record new movements from there
     When pausing, only newly recorded segment sent to processing
+- [ ] *Fix CWD retrieval thing for Windows* (low prio because only affects testing launch)
 
 ## Preview / Seek mode
 - [ ] **Move in time using joysticks**

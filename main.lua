@@ -40,6 +40,9 @@ if not args["song"] then
     args["song"] = cwd .. "/test/audio.mp3"
     args["mirror"] = "true"
 end
+if not launch_with_launcher then
+    print("NOTICE: This application is not meant to be launched without the launcher, apart from testing purposes")
+end
 
 -- ┌                                               ┐
 -- │                 Configuration                 │
