@@ -5,6 +5,8 @@ TBA (once pipelines, etc are up)
 
 
 ## Contributing
+If you can't code and still want to help out, [uploading BSOR files](https://polybox.ethz.ch/index.php/s/RbRFRgc7WnmotAg) is an easy way.
+
 ### Setting up
 Download and install (optional) [LÖVR](https://lovr.org).
 
