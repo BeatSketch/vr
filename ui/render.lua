@@ -5,9 +5,6 @@ local grid = require("ui.elements.grid")
 local handlines = require("ui.elements.handlines")
 local M = {}
 
--- NOTE: Can use the line function directly to draw the history (can add any number of points using it in one go)
--- pass:line(position, tip)
-
 --- Show full beatnote grid
 M.show_grid = true
 M.show_hand_lines = true

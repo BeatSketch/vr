@@ -24,9 +24,6 @@ function M.get_data()
     end
 
     -- Ask the python application to respond (as we otherwise may deadlock)
-    -- TODO: Consider rewriting this? (Currently could block for a long time)
-    -- I have tried the io.lines and io.read("a") approach and both also block until
-    -- new data becomes available, so no option
     print("proc:instr-await")
     io.flush()
 

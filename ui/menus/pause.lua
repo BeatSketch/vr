@@ -3,7 +3,9 @@ local button = require("ui.elements.button")
 local state = require("core.state")
 local tracking = require("util.tracking.tracking")
 local start = require("ui.menus.start")
+local finish = require("ui.menus.finish")
 
+-- Pregenerate the button, etc to save time
 local pause_menu_resume_button = button:new(0.6, 1, -2, 0, 0, 0, 1, 0.5, "Resume", 0.25)
 local pause_menu_quit_button = button:new(-0.6, 1, -2, 0, 0, 0, 1, 0.5, "Quit", 0.25)
 local show_menu = false
@@ -30,7 +32,7 @@ function M.update()
 		end)
 	end
 	tracking.handle_buttons({ "a", "b", "x", "y" }, function()
-		if not start.get_open() then
+		if not start.get_open() and not finish.get_open() then
 			show_menu = true
 			state.set_mode("m")
 			audio.stop()
