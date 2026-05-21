@@ -10,7 +10,7 @@ local M = {}
 ---@param launch_with_launcher boolean Whether to attach to the launcher or not
 function M.update_handler(dt, launch_with_launcher)
 	tracking.update_hands()
-	render.update()
+	render.update(dt)
 	state.update(dt)
 
     -- leave this in please, I have chosen to send the data simultaneously and store it in Python

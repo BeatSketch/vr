@@ -4,10 +4,12 @@ local state = require("core.state")
 local tracking = require("util.tracking.tracking")
 local start = require("ui.menus.start")
 local finish = require("ui.menus.finish")
+local processing = require("ui.processing")
 
 -- Pregenerate the button, etc to save time
-local pause_menu_resume_button = button:new(0.6, 1, -2, 0, 0, 0, 1, 0.5, "Resume", 0.25)
-local pause_menu_quit_button = button:new(-0.6, 1, -2, 0, 0, 0, 1, 0.5, "Quit", 0.25)
+local pause_menu_resume_button = button:new(1.1, 1, -2, 0, 0, 0, 1, 0.5, "Resume", 0.25)
+local pause_menu_process_button = button:new(0, 1, -2, 0, 0, 0, 1, 0.5, "Process", 0.25)
+local pause_menu_quit_button = button:new(-1.1, 1, -2, 0, 0, 0, 1, 0.5, "Quit", 0.25)
 local show_menu = false
 
 local M = {}
@@ -19,16 +21,21 @@ function M.draw(pass)
 		pass:setColor(0.2, 0.2, 0.2)
 		pass:text("PAUSED", 0, 1.8, -2, 0.5)
 		pause_menu_resume_button:draw(pass)
+		pause_menu_process_button:draw(pass)
 		pause_menu_quit_button:draw(pass)
 	end
 end
 
 --- Update handler for the pause menu
-function M.update()
+--- @param dt number delta time
+function M.update(dt)
 	if show_menu then
 		pause_menu_resume_button:handler(M.pause_menu_handler)
 		pause_menu_quit_button:handler(function()
 			lovr.event.quit(0)
+		end)
+		pause_menu_process_button:handler(function()
+			processing.start_processing()
 		end)
 	end
 	tracking.handle_buttons({ "a", "b", "x", "y" }, function()
@@ -38,6 +45,8 @@ function M.update()
 			audio.stop()
 		end
 	end)
+    -- TODO: Remove
+	processing.update(dt)
 end
 
 function M.pause_menu_handler()

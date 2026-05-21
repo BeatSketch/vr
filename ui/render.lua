@@ -27,8 +27,9 @@ function M.draw(pass)
 end
 
 --- Update the state (from lovr.update function)
-function M.update()
-    menu.update()
+--- @param dt number Delta time
+function M.update(dt)
+    menu.update(dt)
 end
 
 return M
