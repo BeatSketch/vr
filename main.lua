@@ -2,16 +2,12 @@ local sabers = require("ui.controllers.sabers")
 local render = require("ui.render")
 local ipc = require("util.ipc.main")
 local cli = require("util.cli")
-local printing = require("util.printing")
 local audio = require("util.audio")
 local updates = require("core.updates")
 local blocks = require("ui.elements.blocks")
 
--- CLI Argument style is key=val, so for song e.g.
--- song=<PATH>
-print("CLI ARGUMENTS:")
+-- CLI Argument style is key=val, so for song e.g. song=<PATH>
 local args = cli.parse_cli_opts()
-printing.print(args)
 local launch_with_launcher = args["launcher"] and args["launcher"] == "true"
 if not args["song"] then
 	local cwd = os.getenv("PWD")
