@@ -97,3 +97,5 @@ end
 
 updates.configure(args)
 ipc.init(launch_with_launcher)
+
+-- Load existing blocks
