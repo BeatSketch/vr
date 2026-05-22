@@ -91,6 +91,14 @@ if not args["mirror"] or args["mirror"] == "false" then
     end
 end
 
+blocks.add_block({
+    x = 2,
+    y = 1,
+    beat = 0.5,
+    hand = "left",
+    orientation = 0
+})
+
 -- ┌                                               ┐
 -- │              Physics / Tracking               │
 -- └                                               ┘
