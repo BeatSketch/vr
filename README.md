@@ -1,10 +1,13 @@
 # BeatSketch
 
 ## Installation
-TBA (once pipelines, etc are up)
+Our installation instructions can be found on our [website](https://beatsketch.github.io) or our [meta repo](https://github.com/BeatSketch/BeatSketch)
 
 
 ## Contributing
+**All code (so far) proudly human-written.**
+*(Codex commit was an accident from a member of the team and doesn't include code)*
+
 If you can't code and still want to help out, [uploading BSOR files](https://polybox.ethz.ch/index.php/s/RbRFRgc7WnmotAg) is an easy way.
 
 ### Setting up
