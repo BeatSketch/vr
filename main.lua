@@ -36,9 +36,10 @@ local blocks = require("ui.elements.blocks")
 local args = cli.parse_cli_opts()
 local launch_with_launcher = args["launcher"] and args["launcher"] == "true"
 if not args["song"] then
-    local cwd = os.getenv("PWD")
-    args["song"] = cwd .. "/test/audio.mp3"
+    args["song"] = "test/audio.mp3"
     args["mirror"] = "true"
+    args["bpm"] = 150
+    args["njs"] = 10
 end
 if not launch_with_launcher then
     print("NOTICE: This application is not meant to be launched without the launcher, apart from testing purposes")

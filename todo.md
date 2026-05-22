@@ -44,7 +44,7 @@ Should be included\
 - [ ] *Rerecording*\
     After completion: User can seek to a previous location and record new movements from there
     When pausing, only newly recorded segment sent to processing
-- [ ] *Fix CWD retrieval thing for Windows* (low prio because only affects testing launch)
+- [X] *Fix CWD retrieval thing for Windows* (low prio because only affects testing launch)
 
 ## Preview / Seek mode
 - [ ] **Move in time using joysticks**
