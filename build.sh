@@ -2,7 +2,7 @@
 
 # Build for GNU/Linux
 if [ "$1" == "true" ]; then
-    echo "
+	echo "
 ==> Building for Linux
     "
 	zip -9qr BeatSketch.lovr .
@@ -18,19 +18,20 @@ if [ "$1" == "true" ]; then
 			cd LOVR-Linux
 			wget -O lovr https://lovr.org/download/linux
 			chmod +x lovr
-			cp lovr ..
-			cd ..
-			cat ./lovr BeatSketch.lovr >BeatSketch
-			rm lovr
 		fi
+		cp lovr ..
+		cd ..
+		cat ./lovr BeatSketch.lovr >BeatSketch
+		rm lovr
 	fi
 	chmod +x ./BeatSketch
 fi
+pwd
 
 # Build for the peasants (Windows users)
 # TODO: Needs verification (that it works)
 if [ "$2" == "true" ]; then
-    echo "
+	echo "
 ==> Building for Windows
     "
 	if [ -d "./LOVR-Windows/" ]; then
@@ -55,7 +56,7 @@ fi
 # Build for Mac
 # TODO: Mac Build
 if [ "$3" == "true" ]; then
-    echo "
+	echo "
 ==> Building for Mac
     "
 	if [ -d "./LOVR-Mac/" ]; then
