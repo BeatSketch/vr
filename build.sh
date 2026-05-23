@@ -1,53 +1,54 @@
 #!/bin/sh
 
-# TODO: Make builds togglable
-platforms=$1
-
 # Build for GNU/Linux
-zip -9qr BeatSketch.lovr .
-if [ -e "/usr/bin/lovr" ]; then
-	echo "Using locally installed lovr"
-	cat /usr/bin/lovr BeatSketch.lovr >BeatSketch
-else
-	if [ -d "./LOVR-Linux/" ]; then
-		echo "LOVR-Linux already exists, skipping download"
-		cd LOVR-Linux
+if [ "$1" == "true" ]; then
+	zip -9qr BeatSketch.lovr .
+	if [ -e "/usr/bin/lovr" ]; then
+		echo "Using locally installed lovr"
+		cat /usr/bin/lovr BeatSketch.lovr >BeatSketch
 	else
-		mkdir LOVR-Linux
-		cd LOVR-Linux
-		wget -O lovr https://lovr.org/download/linux
-		chmod +x lovr
-		cp lovr ..
-		cd ..
-		cat ./lovr BeatSketch.lovr >BeatSketch
-		rm lovr
+		if [ -d "./LOVR-Linux/" ]; then
+			echo "LOVR-Linux already exists, skipping download"
+			cd LOVR-Linux
+		else
+			mkdir LOVR-Linux
+			cd LOVR-Linux
+			wget -O lovr https://lovr.org/download/linux
+			chmod +x lovr
+			cp lovr ..
+			cd ..
+			cat ./lovr BeatSketch.lovr >BeatSketch
+			rm lovr
+		fi
 	fi
+	chmod +x ./BeatSketch
 fi
-chmod +x ./BeatSketch
 
 # Build for the peasants (Windows users)
 # TODO: Needs verification (that it works)
-if [ -d "./LOVR-Windows/" ]; then
-	echo "LOVR-Windows already exists, skipping download"
-	cd LOVR-Windows
-else
-	mkdir LOVR-Windows
-	cd LOVR-Windows
-	wget https://lovr.org/download/windows
-	unzip windows
-	rm windows
-fi
+if [ "$2" == "true" ]; then
+	if [ -d "./LOVR-Windows/" ]; then
+		echo "LOVR-Windows already exists, skipping download"
+		cd LOVR-Windows
+	else
+		mkdir LOVR-Windows
+		cd LOVR-Windows
+		wget https://lovr.org/download/windows
+		unzip windows
+		rm windows
+	fi
 
-cp ../BeatSketch.lovr .
-cat ./lovr.exe BeatSketch.lovr >BeatSketch.exe
-rm BeatSketch.lovr
-cp BeatSketch.exe ..
-cd ..
-rm BeatSketch.lovr
+	cp ../BeatSketch.lovr .
+	cat ./lovr.exe BeatSketch.lovr >BeatSketch.exe
+	rm BeatSketch.lovr
+	cp BeatSketch.exe ..
+	cd ..
+	rm BeatSketch.lovr
+fi
 
 # Build for Mac
 # TODO: Mac Build
-if ( ("$3" == "true")); then
+if [ "$3" == "true" ]; then
 	if [ -d "./LOVR-Mac/" ]; then
 		echo "LOVR-Mac already exists, skipping download"
 		cd LOVR-Mac
