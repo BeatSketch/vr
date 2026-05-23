@@ -2,6 +2,9 @@
 
 # Build for GNU/Linux
 if [ "$1" == "true" ]; then
+    echo "
+==> Building for Linux
+    "
 	zip -9qr BeatSketch.lovr .
 	if [ -e "/usr/bin/lovr" ]; then
 		echo "Using locally installed lovr"
@@ -27,6 +30,9 @@ fi
 # Build for the peasants (Windows users)
 # TODO: Needs verification (that it works)
 if [ "$2" == "true" ]; then
+    echo "
+==> Building for Windows
+    "
 	if [ -d "./LOVR-Windows/" ]; then
 		echo "LOVR-Windows already exists, skipping download"
 		cd LOVR-Windows
@@ -49,6 +55,9 @@ fi
 # Build for Mac
 # TODO: Mac Build
 if [ "$3" == "true" ]; then
+    echo "
+==> Building for Mac
+    "
 	if [ -d "./LOVR-Mac/" ]; then
 		echo "LOVR-Mac already exists, skipping download"
 		cd LOVR-Mac
