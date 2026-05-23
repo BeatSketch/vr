@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -e
 # Build for GNU/Linux
 if [ "$1" == "true" ]; then
 	echo "
@@ -25,8 +26,8 @@ if [ "$1" == "true" ]; then
 		rm lovr
 	fi
 	chmod +x ./BeatSketch
+	echo "-> Build succeeded"
 fi
-pwd
 
 # Build for the peasants (Windows users)
 # TODO: Needs verification (that it works)
@@ -51,6 +52,7 @@ if [ "$2" == "true" ]; then
 	cp BeatSketch.exe ..
 	cd ..
 	rm BeatSketch.lovr
+	echo "-> Build succeeded"
 fi
 
 # Build for Mac
@@ -73,4 +75,5 @@ if [ "$3" == "true" ]; then
 	# sed the Contents/Info.plist file
 	# according to https://lovr.org/docs/Distribution#macos
 	# TODO: for the python application, build it, then create dmg for installation
+	echo "-> Build succeeded"
 fi
