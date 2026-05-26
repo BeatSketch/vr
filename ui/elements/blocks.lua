@@ -12,7 +12,6 @@ function M.load_texture()
 end
 
 local base_quat = lovr.math.newQuat((quat(-math.pi * 0.5, 1, 0, 0) * quat(math.pi, 0, 0, 1)):unpack())
-print(base_quat:unpack())
 --- Draw the blocks
 ---@param pass Pass
 function M.draw(pass)
@@ -30,7 +29,7 @@ function M.draw(pass)
 		end
 
         --- @type Quat
-		local rot = base_quat * quat(0.25 * math.pi * angle_translations[block.orientation + 1], 0, 0, 1)
+		local rot = base_quat * quat(0.25 * math.pi * angle_translations[block.orientation + 1], 0, 1, 0)
 		pass:draw(
 			block.hand == "left" and data.arrow_left or data.arrow_right,
 			state.offsets.x + block.x * state.size.w + state.size.w * 0.5,

@@ -1,5 +1,6 @@
 local ipc = require("util.ipc.main")
 local blocks = require("core.block_state")
+local decoder = require("util.ipc.decoder")
 
 -- Utility to manage the processing step
 local M = {}
@@ -56,7 +57,7 @@ function M.process_blocks()
 		else
 			if next_is_blocks then
 				next_is_blocks = false
-				blocks.add_block_table(value)
+				blocks.add_block_table(decoder.decode_block(value))
 				M.is_processing = false
 			end
 		end
