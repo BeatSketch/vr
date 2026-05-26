@@ -31,6 +31,7 @@ local cli = require("util.cli")
 local audio = require("util.audio")
 local updates = require("core.updates")
 local blocks = require("ui.elements.blocks")
+local state = require("core.state")
 
 -- CLI Argument style is key=val, so for song e.g. song=<PATH>
 local args = cli.parse_cli_opts()
@@ -63,6 +64,8 @@ end
 function lovr.load()
 	if args["song"] then
 		audio.load(args["song"])
+		state.len = audio.get_duration()
+		ipc.send_plain("proc:duration:" .. tostring(state.len))
 	else
 		print("\n[WARNING] No song specified, thus no audio was loaded")
 	end

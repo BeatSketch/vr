@@ -15,6 +15,7 @@ local M = {}
 ---@param device controllers
 function M.get_thumbstick_axes(device)
 	local x, y = lovr.headset.getAxis(device, "thumbstick")
+
 	return {
 		x = x,
 		y = y,

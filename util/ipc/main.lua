@@ -66,12 +66,14 @@ function M.send_json(data)
 	io.flush()
 end
 
---- Send text to the parent process
+--- Send text to the parent process (str: prefix added)
 ---@param data string The string to send
 function M.send_text(data)
 	M.send_plain("str:" .. data)
 end
 
+--- Send a plain instruction (no prefixing)
+---@param data string The data to send
 function M.send_plain(data)
 	if not init_done then
 		return false
