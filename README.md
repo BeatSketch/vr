@@ -1,7 +1,7 @@
 # BeatSketch
 
 ## Installation
-Our installation instructions can be found on our [website](https://beatsketch.github.io) or our [meta repo](https://github.com/BeatSketch/BeatSketch)
+Our installation instructions can be found on our [website](https://beatsketch.github.io/get) or our [meta repo](https://github.com/BeatSketch/BeatSketch)
 
 
 ## Contributing

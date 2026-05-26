@@ -11,13 +11,13 @@ Should be included\
 - [X] Sabers: Rotatable in all directions
 - [X] 4 lanes
 - [X] Grid
-- [ ] Add some animation for bpm? (what does this mean?) -> Blinking light / lines, etc
+- [ ] *Add some animation for bpm? (what does this mean?) -> Blinking light / lines, etc*
 - [ ] *Materials*
 - [ ] *More animations*
 
 ## UI Library (in VR)
 - [X] Buttons
-- [ ] **Menus?**
+- [ ] ~**Menus?**~
 
 ## UX
 - [ ] Grid: tie visibility to a hotkey or menu option (use `render.show_grid`)
@@ -47,6 +47,6 @@ Should be included\
 - [X] *Fix CWD retrieval thing for Windows* (low prio because only affects testing launch)
 
 ## Preview / Seek mode
-- [ ] **Move in time using joysticks**
-- [ ] Show current time, total time
+- [X] **Move in time using joysticks**
+- [X] Show current time, total time
 - [ ] *Show blocks per second at this time (averaged over 5s)*
