@@ -40,7 +40,7 @@ M.draw_line = function(pass, arr, color_normal, color_highlight)
 	-- TODO: If we compute the user's facing direction,
 	-- we can save even more compute
 	local time = state.disp / state.spd
-	local curr_idx = math.floor(time * (n / time))
+	local curr_idx = math.floor(time * state.tracking_freq)
 	local newest_idx = math.min(curr_idx + math.min(M.count.future * state.tracking_freq, M.max_count.future), n)
 	local oldest_idx = math.max(curr_idx - math.min(M.count.past * state.tracking_freq, M.max_count.past), 2)
 

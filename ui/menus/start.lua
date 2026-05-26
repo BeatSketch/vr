@@ -11,9 +11,9 @@ local show_menu = true
 ---@param pass Pass
 function M.draw(pass)
 	if show_menu then
-		pass:setColor(0.2, 0.2, 0.2)
-		pass:text("Hello World!", 0, 2.2, -2, 0.5)
-		pass:text("BeatSketch", 0, 1.6, -2, 0.25)
+		pass:setColor(0.5, 0.5, 0.5)
+		pass:text("BeatSketch", 0, 2, -2, 0.4)
+		pass:text("Press start to record your map", 0, 1.6, -2, 0.2)
 		start_menu_button:draw(pass)
 	end
 end

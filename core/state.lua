@@ -1,8 +1,11 @@
 local tracking = require("util.tracking.tracking")
 local Tracking = require("util.tracking.history")
-local printing = require("util.printing")
-local M = {}
+local audio = require("util.audio")
+local processing = require("ui.processing")
+
 --- Global data for the vr application, use setters whenever possible
+local M = {}
+M.processing = processing
 
 --- @class Sizes
 --- @field h number
@@ -33,7 +36,7 @@ M.size = {
 	w = 0.666,
 }
 
---- The sizes of the blocks in each direction
+--- The size of the block
 --- @type number
 M.block_size = 0.5
 
@@ -92,11 +95,13 @@ M.tracking_freq = 20
 --- Set current vr app mode
 --- @param new_mode "r" | "v" | "m" record, view or menu
 M.set_mode = function(new_mode)
-	if M.mode == "r" and new_mode == "v" then
+	if (M.mode == "r" or M.mode == "m") and new_mode == "v" then
 		--- Store displacement when seeking
 		M.prev_disp = M.disp
-	elseif M.mode == "v" and new_mode == "r" then
+		audio.store_current_pos()
+	elseif M.mode == "v" and (new_mode == "r" or new_mode == "m") then
 		--- revert to previous displacement after seeking
+		audio.seek_to_stored_pos()
 		M.disp = M.prev_disp
 		M.prev_disp = 0
 	end
@@ -125,17 +130,28 @@ end
 --- Update current displacement
 --- @param dt number deltatime
 M.update_disp = function(dt)
-	-- FIXME: This may not be accurate, can instead use the audio
-	-- module's tracker, which is accurate
 	M.time = M.time + dt
 	if M.mode == "r" then
 		M.disp = M.disp + (dt * M.spd)
 	elseif M.mode == "v" then
-		--- move via controller input
-		M.disp = M.disp
-			+ dt * tracking.get_thumbstick_axes("left").y * M.seek_speed
-			+ dt * tracking.get_thumbstick_axes("right").y * M.seek_speed
-		printing.print(tracking.get_thumbstick_axes("left"))
+		if not processing.is_processing then
+			local offset = dt * tracking.get_thumbstick_axes("left").y * M.seek_speed
+				+ dt * tracking.get_thumbstick_axes("right").y * M.seek_speed
+			local playhead_offset = audio.is_playing() and dt or 0
+			-- move via controller input
+			-- TODO: Limit to not go into the future
+			if M.disp + offset * M.spd + playhead_offset * M.spd > M.prev_disp then
+				M.disp = M.prev_disp
+				audio.stop()
+				audio.seek_to_stored_pos()
+			elseif offset ~= 0 then
+				audio.stop()
+				M.disp = math.max(M.disp + offset * M.spd + playhead_offset * M.spd, 0)
+				audio.seek(math.max(audio.get_pos() + offset + playhead_offset, 0))
+			elseif audio.is_playing() then
+				M.disp = math.max(M.disp + dt * M.spd, 0)
+			end
+		end
 	end
 end
 
@@ -145,7 +161,6 @@ M.reset_disp = function()
 	M.prev_disp = 0
 end
 
--- FIXME: Can use audio playback position instead of this
 local track_delta = 0
 local count = 0
 local target = 1 / M.tracking_freq

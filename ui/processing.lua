@@ -1,5 +1,5 @@
 local ipc = require("util.ipc.main")
-local blocks = require("ui.elements.blocks")
+local blocks = require("core.block_state")
 
 -- Utility to manage the processing step
 local M = {}
