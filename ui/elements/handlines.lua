@@ -37,14 +37,18 @@ M.draw_line = function(pass, arr, color_normal, color_highlight)
 	end
 
 	-- Get curr pos (then render 100 ahead and 100 back)
-	-- TODO: If we compute the user's facing direction,
-	-- we can save even more compute
 	local time = state.disp / state.spd
 	local curr_idx = math.floor(time * state.tracking_freq)
 	local newest_idx = math.min(curr_idx + math.min(M.count.future * state.tracking_freq, M.max_count.future), n)
 	local oldest_idx = math.max(curr_idx - math.min(M.count.past * state.tracking_freq, M.max_count.past), 2)
 
 	-- Treat first explicitly
+	if arr[oldest_idx - 1] == nil then
+        print("The array", arr[oldest_idx - 1], "idx", oldest_idx - 1)
+        print("The next el is", arr[oldest_idx - 1])
+        print("The prev el is", arr[oldest_idx - 2])
+        print("The len is", #arr)
+	end
 	local point = arr[oldest_idx - 1].pos + lovr.math.vec3(0, 0, state.disp - state.history_disp[oldest_idx - 1])
 	pass:setColor(color_highlight)
 	pass:points(point)
