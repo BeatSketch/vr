@@ -1,6 +1,5 @@
 local state = require("core.state")
 local button = require("ui.elements.button")
-local audio = require("util.audio")
 
 local end_menu_seek_button = button:new(0.6, 0.8, -3, 0, 0, 0, 1, 0.5, "Preview", 0.25)
 local end_menu_quit_button = button:new(-0.6, 0.8, -3, 0, 0, 0, 1, 0.5, "Quit", 0.25)
@@ -28,7 +27,6 @@ function M.update()
 		end_menu_seek_button:handler(function()
 			show_menu = false
 			state.set_mode("v")
-			audio.start()
 		end)
 		end_menu_quit_button:handler(function()
 			lovr.event.quit(0)

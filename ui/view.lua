@@ -59,6 +59,7 @@ function M.update()
 			end)
 		end
 		view_exit_button:handler(function()
+            -- TODO: Exit button when this is opened from finish menu should do what?
 			state.set_mode("m")
 			pause.open_menu()
 		end)
