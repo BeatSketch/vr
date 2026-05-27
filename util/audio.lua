@@ -11,7 +11,7 @@ function M.load(file)
 	if file:sub(0, 1) == '"' then
 		file = file:sub(2, file:len() - 1)
 	end
-	local f = io.open(file, "r")
+	local f = io.open(file, "rb")	--- Must be "rb" else no audio on Windows
 	if f then
 		M.load_blob(lovr.data.newBlob(f:read("a")))
 	else
