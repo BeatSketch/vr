@@ -98,4 +98,14 @@ function Tracking:get_tips(length, idx)
 		(self.data.right[idx].direction + self.data.right[idx].direction * length)
 end
 
+--- Clear all tracking data
+function Tracking:reset()
+    self.data.head = {}
+    self.data.left = {}
+    self.data.right = {}
+    self.idx.left = 0
+    self.idx.right = 0
+    self.idx.head = 0
+end
+
 return Tracking

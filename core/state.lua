@@ -164,6 +164,7 @@ end
 local track_delta = 0
 local count = 0
 local target = 1 / M.tracking_freq
+M.avg_count = 0
 --- Try to insert current position of hands into history (see `state.tracking_freq`)
 --- @param dt number delta time
 M.update_history = function(dt)
@@ -177,6 +178,7 @@ M.update_history = function(dt)
 		local hands = tracking.get_hands()
 		M.history:hands(hands.left, hands.right)
 		M.history_disp[count + 1] = M.disp
+		M.avg_count = (M.avg_count * count + (1 / track_delta)) / (count + 1)
 		count = count + 1
 		track_delta = 0
 	end

@@ -1,10 +1,8 @@
-local printing = require("util.printing")
 local M = {}
 
 --- Validate the received data as a block and transform into correct format
 ---@param data table
 function M.decode_block(data)
-	printing.print(data)
 	--- Blocks
 	---@type Block[]
 	local blocks = {}
