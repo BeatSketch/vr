@@ -36,10 +36,11 @@ end
 
 function M.open_menu()
 	show_menu = true
+	state.set_mode("m")
 end
 
 function M.get_open()
-    return show_menu
+	return show_menu
 end
 
 return M

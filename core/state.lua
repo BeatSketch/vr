@@ -132,7 +132,7 @@ end
 M.update_disp = function(dt)
 	M.time = M.time + dt
 	if M.mode == "r" then
-		M.disp = M.time * M.spd
+		M.disp = M.disp + (dt * M.spd)
 	elseif M.mode == "v" then
 		if not processing.is_processing then
 			local offset = dt * tracking.get_thumbstick_axes("left").y * M.seek_speed

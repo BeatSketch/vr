@@ -4,6 +4,7 @@ local start = 0
 local is_playing = false
 local init = false
 local prev_pos = 0
+-- local state = require("core.state")
 
 --- Load the music file
 --- @param file string The audio file to load
@@ -11,7 +12,7 @@ function M.load(file)
 	if file:sub(0, 1) == '"' then
 		file = file:sub(2, file:len() - 1)
 	end
-	local f = io.open(file, "rb")	--- Must be "rb" else no audio on Windows
+	local f = io.open(file, "rb") --- Must be "rb" else no audio on Windows
 	if f then
 		M.load_blob(lovr.data.newBlob(f:read("a")))
 	else
@@ -30,6 +31,8 @@ function M.load_blob(blob)
 		spatial = false,
 		decode = false,
 	})
+    -- FIXME: Refactor the state file to enable this
+	-- state.len = AudioSource:getDuration("seconds")
 	AudioSource:setLooping(false)
 	init = true
 	is_playing = false
@@ -40,7 +43,7 @@ end
 function M.stop()
 	if is_playing then
 		pos = M.get_pos()
-        is_playing = false
+		is_playing = false
 		AudioSource:pause()
 	end
 end

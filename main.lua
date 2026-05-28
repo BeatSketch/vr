@@ -98,8 +98,18 @@ end
 -- │              Physics / Tracking               │
 -- └                                               ┘
 -- Tracking and the like get continuous updates
+local has_finished_recording = false
 function lovr.update(delta_time)
 	updates.update_handler(delta_time, launch_with_launcher)
+
+    -- FIXME: This should go in a different file,
+    -- but for that need to refactor core/state.lua
+	if state.mode == "r" and audio.get_pos() >= state.len and not has_finished_recording then
+        print("Opening end menu")
+        audio.stop()
+		render.open_end_menu()
+        has_finished_recording = true
+	end
 end
 
 updates.configure(args)

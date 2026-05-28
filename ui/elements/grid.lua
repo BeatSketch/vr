@@ -7,6 +7,7 @@ M.bar_count = {
 	past = 4,
 }
 M.render_z_axis_lines = false
+M.end_beat_overflow = 20
 
 local color_normal = { 0.1, 0.1, 0.1, 1 }
 local color_highlight = { 0.2, 0.2, 0.2, 1 }
@@ -18,11 +19,11 @@ M.grid = function(pass)
 	--- Number of grid layers (beats)
 	local d = math.floor(state.bpm * (state.len / 60))
 	--- Distance between grid layers
-    state.dist = 60 / state.bpm * state.spd
+	state.dist = 60 / state.bpm * state.spd
 
 	local time = state.disp / state.spd
 	local curr_idx = math.ceil(time / state.len * d)
-	local max_idx = math.min(curr_idx + state.signature.top * M.bar_count.future, d)
+	local max_idx = math.min(curr_idx + state.signature.top * M.bar_count.future, d + M.end_beat_overflow)
 	local min_idx = math.max(curr_idx - state.signature.top * M.bar_count.past, 1)
 
 	--- Offsets for different coordinates

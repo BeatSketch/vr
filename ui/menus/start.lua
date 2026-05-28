@@ -30,16 +30,16 @@ function M.start_menu_handler()
 	show_menu = false
 	state.set_disp(0)
 	state.set_mode("r")
+	state.len = audio.get_duration()
 	audio.start()
 end
-
 
 function M.open_menu()
 	show_menu = true
 end
 
 function M.get_open()
-    return show_menu
+	return show_menu
 end
 
 return M

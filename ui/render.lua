@@ -38,4 +38,8 @@ function M.update(dt)
 	view.update()
 end
 
+function M.open_end_menu()
+    menu.open_end_menu()
+end
+
 return M
