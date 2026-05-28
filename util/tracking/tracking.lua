@@ -22,6 +22,17 @@ function M.get_thumbstick_axes(device)
 	}
 end
 
+--- Returns the current position of the touchpad
+---@param device controllers
+function M.get_touchpad_axes(device)
+	local x, y = lovr.headset.getAxis(device, "touchpad")
+
+	return {
+		x = x,
+		y = y,
+	}
+end
+
 --- @type TrackerStates
 local tracker_states = {
 	head = {

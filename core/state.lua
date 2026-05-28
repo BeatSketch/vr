@@ -135,8 +135,16 @@ M.update_disp = function(dt)
 		M.disp = M.disp + (dt * M.spd)
 	elseif M.mode == "v" then
 		if not processing.is_processing then
-			local offset = dt * tracking.get_thumbstick_axes("left").y * M.seek_speed
-				+ dt * tracking.get_thumbstick_axes("right").y * M.seek_speed
+			local axes_l = tracking.get_thumbstick_axes("left")
+			local axes_r = tracking.get_thumbstick_axes("right")
+
+			-- If all axes are zero, assume no thumbstick exists and try touchpad (e.g. Vive Hardware)
+			if axes_l.x == 0 and axes_l.y == 0 and axes_r.x == 0 and axes_r.y == 0 then 
+				axes_l = tracking.get_touchpad_axes("left")
+				axes_r = tracking.get_touchpad_axes("right")
+			end
+
+			local offset = dt * axes_l.y * M.seek_speed + dt * axes_r.y * M.seek_speed
 			local playhead_offset = audio.is_playing() and dt or 0
 			-- move via controller input
 			-- TODO: Limit to not go into the future
