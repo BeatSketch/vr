@@ -105,10 +105,9 @@ function lovr.update(delta_time)
     -- FIXME: This should go in a different file,
     -- but for that need to refactor core/state.lua
 	if state.mode == "r" and audio.get_pos() >= state.len and not has_finished_recording then
-        print("Opening end menu")
+        has_finished_recording = true
         audio.stop()
 		render.open_end_menu()
-        has_finished_recording = true
 	end
 end
 
