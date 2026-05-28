@@ -39,7 +39,7 @@ local launch_with_launcher = args["launcher"] and args["launcher"] == "true"
 if not args["song"] then
 	args["song"] = "assets/audio.mp3"
 	args["mirror"] = "true"
-	args["bpm"] = 150
+	args["bpm"] = 120
 	args["njs"] = 10
 end
 if not launch_with_launcher then
