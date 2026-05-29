@@ -50,9 +50,9 @@ local tracker_states = {
 		buttons = {},
 	},
 	right = {
-		pos = vec3(0, 0, 0),
-		direction = vec3(0, 0, 0),
-		angle = quat(0, 0, 0, 1),
+		pos = lovr.math.newVec3(0, 0, 0),
+		direction = lovr.math.newVec3(0, 0, 0),
+		angle = lovr.math.newQuat(0, 0, 0, 1),
 		timestamp = 0,
 		buttons = {},
 	},
@@ -60,6 +60,7 @@ local tracker_states = {
 
 --- Store the positions for the hands
 function M.update_hands()
+    -- TODO: Here we could fix the positions
 	tracker_states.left = trackers.get_hand("left", audio.get_pos())
 	tracker_states.right = trackers.get_hand("right", audio.get_pos())
 end

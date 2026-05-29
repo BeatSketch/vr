@@ -1,5 +1,5 @@
 local state = require("core.state")
-local tracking = require("util.tracking.tracking")
+local tracking = require("util.tracking.main")
 local render = require("ui.render")
 local ipc = require("util.ipc.main")
 

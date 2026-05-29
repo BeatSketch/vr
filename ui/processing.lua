@@ -7,14 +7,6 @@ local M = {}
 
 M.is_processing = false
 
---- Draw the processing UI
----@param pass Pass The rendering pass
-function M.draw(pass)
-	if M.is_processing then
-		print(pass)
-	end
-end
-
 function M.start_processing()
 	M.is_processing = true
 	ipc.send_plain("proc:do-processing")

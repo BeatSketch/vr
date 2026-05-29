@@ -16,7 +16,8 @@ local base_quat = lovr.math.newQuat((quat(-math.pi * 0.5, 1, 0, 0) * quat(math.p
 ---@param pass Pass
 function M.draw(pass)
 	for _, block in pairs(block_state.blocks) do
-		local pos = state.disp - block.beat * state.spd
+		-- beat in time -> to displacement
+		local pos = -(block.beat * 60 / state.bpm) * state.spd + state.disp
 		if pos < -block_state.render_distance or pos > block_state.render_distance then
 			-- that's actually pretty cool that there is goto
 			goto continue
@@ -28,7 +29,7 @@ function M.draw(pass)
 			pass:setColor(1, 0, 0, 1)
 		end
 
-        --- @type Quat
+		--- @type Quat
 		local rot = base_quat * quat(0.25 * math.pi * angle_translations[block.orientation + 1], 0, 1, 0)
 		pass:draw(
 			block.hand == "left" and data.arrow_left or data.arrow_right,
@@ -36,7 +37,7 @@ function M.draw(pass)
 			state.offsets.y + block.y * state.size.h + state.size.h * 0.5,
 			pos,
 			state.block_size,
-            rot:unpack()
+			rot:unpack()
 		)
 		::continue::
 	end

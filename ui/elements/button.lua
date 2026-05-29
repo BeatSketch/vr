@@ -1,4 +1,4 @@
-local tracking = require("util.tracking.tracking")
+local tracking = require("util.tracking.main")
 --- @alias ColorType "active"|"hover"|"normal"
 --- @class Color
 --- @field r number
