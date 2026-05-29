@@ -32,6 +32,7 @@ Should be included\
 - [X] **Match exact Beat Saber grid size** -> I messaged BeatGames, so we can do that once I got a response
 - [X] **Show lines for hands** (need to be corrected for saber tips)
 - [x] Implement saber tip computation -> pos + dir * len for each state
+- [ ] **fix mixed up controllers on some platforms**
 
 ## Other
 - [ ] Seeking back in the song (when? After completion or in pause menu?)\
@@ -45,6 +46,7 @@ Should be included\
     After completion: User can seek to a previous location and record new movements from there
     When pausing, only newly recorded segment sent to processing
 - [X] *Fix CWD retrieval thing for Windows* (low prio because only affects testing launch)
+- [ ] Customizable button to trigger the pause menu (plus defaults for some platforms?)
 
 ## Preview / Seek mode
 - [X] **Move in time using joysticks**
