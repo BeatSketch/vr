@@ -55,7 +55,7 @@ M.bpm = 120
 --- @type 1 | 2 | 4 | 8 | 16
 M.beat_div = 4
 
--- TODO: Get from audio.get_duration()
+-- TODO: Get from audio.get_duration() -> Needs refactor
 --- Current Song's length in seconds
 --- @type number
 M.len = 160
@@ -135,7 +135,7 @@ M.update_disp = function(dt)
 		M.disp = M.disp + (dt * M.spd)
 	elseif M.mode == "v" then
 		if not processing.is_processing then
-            -- move via controller input
+			-- move via controller input
 			local axes_l = tracking.get_thumbstick_axes("left")
 			local axes_r = tracking.get_thumbstick_axes("right")
 
@@ -180,6 +180,7 @@ M.update_history = function(dt)
 		return
 	end
 
+	-- TODO: Do this more reliably (i.e. guarantee that there are tracking_freq blocks per second)
 	track_delta = track_delta + dt
 	if track_delta >= target then
 		local hands = tracking.get_hands()
