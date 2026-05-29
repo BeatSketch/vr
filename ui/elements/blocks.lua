@@ -24,9 +24,9 @@ function M.draw(pass)
 		end
 
 		if block.hand == "left" then
-			pass:setColor(0, 0, 1, 1)
+            pass:setColor(1, 0, 0, 1)
 		else
-			pass:setColor(1, 0, 0, 1)
+            pass:setColor(0, 0, 1, 1)
 		end
 
 		--- @type Quat
