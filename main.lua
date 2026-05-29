@@ -37,7 +37,7 @@ local state = require("core.state")
 local args = cli.parse_cli_opts()
 local launch_with_launcher = args["launcher"] and args["launcher"] == "true"
 if not args["song"] then
-	args["song"] = "assets/audio.mp3"
+	args["song"] = "assets/audio.ogg"
 	args["mirror"] = "true"
 	args["bpm"] = 120
 	args["njs"] = 10
