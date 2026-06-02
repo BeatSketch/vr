@@ -30,6 +30,10 @@ function M.configure(args)
 	if args["njs"] then
 		state.spd = tonumber(args["njs"]) or 10
 	end
+	local x = tonumber(args["rx"] or "20") or 20
+	local y = tonumber(args["ry"] or "0") or 0
+	local z = tonumber(args["rz"] or "0") or 0
+	tracking.set_saber_angles(x, y, z)
 end
 
 return M

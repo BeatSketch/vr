@@ -60,7 +60,7 @@ local tracker_states = {
 
 --- Store the positions for the hands
 function M.update_hands()
-    -- TODO: Here we could fix the positions
+	-- TODO: Here we could fix the positions
 	tracker_states.left = trackers.get_hand("left", audio.get_pos())
 	tracker_states.right = trackers.get_hand("right", audio.get_pos())
 end
@@ -174,5 +174,7 @@ function M.get_for_transmit_from_state(state, paused)
 		paused = paused,
 	}
 end
+
+M.set_saber_angles = trackers.set_saber_angles
 
 return M
