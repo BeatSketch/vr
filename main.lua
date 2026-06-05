@@ -32,16 +32,11 @@ local audio = require("util.audio")
 local updates = require("core.updates")
 local blocks = require("ui.elements.blocks")
 local state = require("core.state")
+local launch_details = require("ui.launch_details")
 
 -- CLI Argument style is key=val, so for song e.g. song=<PATH>
 local args = cli.parse_cli_opts()
 local launch_with_launcher = args["launcher"] and args["launcher"] == "true"
-if not args["song"] then
-	args["song"] = "assets/audio.ogg"
-	args["mirror"] = "true"
-	args["bpm"] = 120
-	args["njs"] = 10
-end
 if not launch_with_launcher then
 	print("NOTICE: This application is not meant to be launched without the launcher, apart from testing purposes")
 end
@@ -54,7 +49,7 @@ function lovr.conf(t)
 	-- I have yet to figure out the resizing and stuff
 	t.headset.start = true
 	t.identity = "beatsketch"
-	t.window.width = 1920
+	t.window.title = "BeatSketch VR"
 	t.window.resizable = true
 end
 
@@ -75,44 +70,41 @@ end
 -- ┌                                               ┐
 -- │                    Drawing                    │
 -- └                                               ┘
--- Drawing the screen is called once every frame
-function lovr.draw(pass)
-	sabers.draw(pass)
-	render.draw(pass)
-	blocks.draw(pass)
-end
-
--- Desktop mirror. Can be disabled
-if not args["mirror"] or args["mirror"] == "false" then
-	local x, y, z = -3, 3, 3
-	local view = lovr.math.newMat4():lookAt(vec3(x, y, z), vec3(0, 0, 0))
-	function lovr.mirror(pass)
-		pass:transform(view)
+if args["song"] then
+	-- Drawing the screen is called once every frame
+	function lovr.draw(pass)
 		sabers.draw(pass)
 		render.draw(pass)
-		return false
+		blocks.draw(pass)
 	end
-end
 
--- ┌                                               ┐
--- │              Physics / Tracking               │
--- └                                               ┘
--- Tracking and the like get continuous updates
-local has_finished_recording = false
-function lovr.update(delta_time)
-	updates.update_handler(delta_time, launch_with_launcher)
-
-    -- FIXME: This should go in a different file,
-    -- but for that need to refactor core/state.lua
-	if state.mode == "r" and audio.get_pos() >= state.len and not has_finished_recording then
-        has_finished_recording = true
-        audio.stop()
-		render.open_end_menu()
+	-- Desktop mirror. Can be disabled
+	if not args["mirror"] or args["mirror"] == "true" then
+		local x, y, z = -3, 3, 3
+		local view = lovr.math.newMat4():lookAt(vec3(x, y, z), vec3(0, 0, 0))
+		function lovr.mirror(pass)
+			pass:transform(view)
+			sabers.draw(pass)
+			render.draw(pass)
+			return false
+		end
 	end
-end
 
-updates.configure(args)
-ipc.init(launch_with_launcher)
+	-- ┌                                               ┐
+	-- │              Physics / Tracking               │
+	-- └                                               ┘
+	-- Tracking and the like get continuous updates
+	function lovr.update(delta_time)
+		updates.update_handler(delta_time, launch_with_launcher)
+	end
+
+	updates.configure(args)
+	ipc.init(launch_with_launcher)
+else
+	function lovr.draw(pass)
+        launch_details.draw(pass)
+    end
+end
 
 -- Load existing blocks
 -- CONCEPT: Send request for them over IPC and then await them (using the ipc.get_data function)

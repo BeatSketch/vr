@@ -17,6 +17,13 @@ function M.parse_cli_opts()
 		end
 	end
 
+	if parsed_args["dev"] then
+		parsed_args["song"] = "assets/audio.ogg"
+		parsed_args["mirror"] = "true"
+		parsed_args["bpm"] = 120
+		parsed_args["njs"] = 10
+	end
+
 	return parsed_args
 end
 
