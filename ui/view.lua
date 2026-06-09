@@ -67,7 +67,7 @@ function M.update()
 		view_record_from_here_button:handler(function()
 			state.prev_disp = state.disp
 			audio.store_current_pos()
-			ipc.send_plain("proc:overwrite-from:" .. tostring((state.disp / state.spd) / state.bpm))
+			ipc.send_plain("proc:overwrite")
 			state.set_mode("r")
 			audio.start()
 		end)
