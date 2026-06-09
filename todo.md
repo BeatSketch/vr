@@ -7,32 +7,16 @@ Should be included\
 *May be included* (if $\exists$ time)
 
 ## Renderer
-- [X] Sabers
-- [X] Sabers: Rotatable in all directions
-- [X] 4 lanes
-- [X] Grid
 - [ ] *Add some animation for bpm? (what does this mean?) -> Blinking light / lines, etc*
 - [ ] *Materials*
 - [ ] *More animations*
-
-## UI Library (in VR)
-- [X] Buttons
-- [ ] ~**Menus?**~
 
 ## UX
 - [ ] Grid: tie visibility to a hotkey or menu option (use `render.show_grid`)
 - [ ] Show current position in song (i.e. full beats) to user in non.obstructive way (e.g. reduced grid, floor lines only or similar)
 
-## Audio
-- [X] Song loading
-- [X] Play / Pause / Seek
-
 ## Tracking
-- [X] **Grid system**
-- [X] **Match exact Beat Saber grid size** -> I messaged BeatGames, so we can do that once I got a response
-- [X] **Show lines for hands** (need to be corrected for saber tips)
-- [x] Implement saber tip computation -> pos + dir * len for each state
-- [ ] **fix mixed up controllers on some platforms**
+- [X] **fix mixed up controllers on some platforms**
 
 ## Other
 - [ ] Seeking back in the song (when? After completion or in pause menu?)\
@@ -45,10 +29,8 @@ Should be included\
 - [ ] *Rerecording*\
     After completion: User can seek to a previous location and record new movements from there
     When pausing, only newly recorded segment sent to processing
-- [X] *Fix CWD retrieval thing for Windows* (low prio because only affects testing launch)
 - [ ] Customizable button to trigger the pause menu (plus defaults for some platforms?)
 
 ## Preview / Seek mode
-- [X] **Move in time using joysticks**
 - [X] Show current time, total time
 - [ ] *Show blocks per second at this time (averaged over 5s)*
