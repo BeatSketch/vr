@@ -1,7 +1,7 @@
 local finish = require("ui.menus.finish")
 local start = require("ui.menus.start")
 local pause = require("ui.menus.pause")
-local processing = require("ui.processing")
+local processing = require("util.processing")
 
 local M = {}
 

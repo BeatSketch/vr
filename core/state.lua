@@ -1,7 +1,7 @@
 local tracking = require("util.tracking.main")
 local Tracking = require("util.tracking.history")
 local audio = require("util.audio")
-local processing = require("ui.processing")
+local processing = require("util.processing")
 
 --- Global data for the vr application, use setters whenever possible
 local M = {}

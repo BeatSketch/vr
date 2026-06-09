@@ -33,6 +33,7 @@ local updates = require("core.updates")
 local blocks = require("ui.elements.blocks")
 local state = require("core.state")
 local launch_details = require("ui.launch_details")
+local processing = require("util.processing")
 
 -- CLI Argument style is key=val, so for song e.g. song=<PATH>
 local args = cli.parse_cli_opts()
@@ -100,6 +101,10 @@ if args["song"] then
 
 	updates.configure(args)
 	ipc.init(launch_with_launcher)
+
+	if launch_with_launcher then
+		processing.request_existing_blocks()
+	end
 else
 	function lovr.draw(pass)
 		launch_details.draw(pass)

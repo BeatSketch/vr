@@ -12,13 +12,6 @@ function M.start_processing()
 	ipc.send_plain("proc:do-processing")
 end
 
---- Start a rework section, i.e. telling the launcher that any new data
---- will overwrite the old data from this point onwards
----@param time number
-function M.overwrite_from(time)
-	ipc.send_text("proc:overwrite-from:" .. tostring(time))
-end
-
 local time_delta = 0
 --- lovr update function callback
 ---@param dt number the time since last call
@@ -32,7 +25,7 @@ function M.update(dt)
 end
 
 function M.request_existing_blocks()
-	ipc.send_text("proc:get-existing-blocks")
+	ipc.send_text("proc:existing-blocks")
 	M.process_blocks()
 end
 

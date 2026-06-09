@@ -4,7 +4,7 @@ local platform = require("ui.elements.platform")
 local grid = require("ui.elements.grid")
 local handlines = require("ui.elements.handlines")
 local view = require("ui.view")
-local processing = require("ui.processing")
+local processing = require("util.processing")
 local M = {}
 
 --- Show full beatnote grid

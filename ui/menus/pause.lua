@@ -4,7 +4,7 @@ local state = require("core.state")
 local tracking = require("util.tracking.main")
 local start = require("ui.menus.start")
 local finish = require("ui.menus.finish")
-local processing = require("ui.processing")
+local processing = require("util.processing")
 
 -- Pregenerate the button, etc to save time
 local pause_menu_resume_button = button:new(1.1, 1, -2, 0, 0, 0, 1, 0.5, "Resume", 0.25)
