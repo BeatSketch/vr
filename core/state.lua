@@ -172,6 +172,7 @@ local track_delta = 0
 local count = 0
 local target = 1 / M.tracking_freq
 M.avg_count = 0
+
 --- Try to insert current position of hands into history (see `state.tracking_freq`)
 --- @param dt number delta time
 M.update_history = function(dt)
@@ -180,7 +181,6 @@ M.update_history = function(dt)
 		return
 	end
 
-	-- TODO: Do this more reliably (i.e. guarantee that there are tracking_freq blocks per second)
 	track_delta = track_delta + dt
 	if track_delta >= target then
 		local hands = tracking.get_hands()

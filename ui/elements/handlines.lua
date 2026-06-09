@@ -2,8 +2,8 @@ local state = require("core.state")
 local M = {}
 
 M.count = {
-	future = 3,
-	past = 3,
+	future = 5,
+	past = 5,
 }
 M.max_count = {
 	future = 200,
@@ -39,8 +39,8 @@ M.draw_line = function(pass, arr, color_normal, color_highlight)
 	-- Get curr pos (then render 100 ahead and 100 back)
 	local time = state.disp / state.spd
 	local curr_idx = math.max(math.min(math.floor(time * state.avg_count - 15), n), 1)
-	local newest_idx = math.min(curr_idx + math.min(M.count.future * state.tracking_freq, M.max_count.future), n)
-	local oldest_idx = math.max(curr_idx - math.min(M.count.past * state.tracking_freq, M.max_count.past), 2)
+	local newest_idx = math.min(curr_idx + math.min(M.count.future * state.avg_count, M.max_count.future), n)
+	local oldest_idx = math.max(curr_idx - math.min(M.count.past * state.avg_count, M.max_count.past), 2)
 
 	-- Treat first explicitly
 	if arr[oldest_idx - 1] == nil then
