@@ -3,6 +3,7 @@ local button = require("ui.elements.button")
 local state = require("core.state")
 local time = require("ui.elements.time")
 local pause = require("ui.menus.pause")
+local ipc = require("util.ipc.main")
 
 -- Pregenerate the button, etc to save time
 local view_play_button = button:new(-2, 1, -3, 0, 0, 0, 0.75, 0.5, "Play", 0.25)
@@ -59,13 +60,14 @@ function M.update()
 			end)
 		end
 		view_exit_button:handler(function()
-            -- TODO: Exit button when this is opened from finish menu should do what?
+			-- TODO: Exit button when this is opened from finish menu should do what?
 			state.set_mode("m")
 			pause.open_menu()
 		end)
 		view_record_from_here_button:handler(function()
 			state.prev_disp = state.disp
 			audio.store_current_pos()
+			ipc.send_plain("proc:overwrite-from:" .. tostring((state.disp / state.spd) / state.bpm))
 			state.set_mode("r")
 			audio.start()
 		end)

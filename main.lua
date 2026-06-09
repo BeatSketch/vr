@@ -79,7 +79,7 @@ if args["song"] then
 	end
 
 	-- Desktop mirror. Can be disabled
-	if args["mirror"] and args["mirror"] == "true" then
+	if not args["mirror"] or args["mirror"] == "false" then
 		local x, y, z = -3, 3, 3
 		local view = lovr.math.newMat4():lookAt(vec3(x, y, z), vec3(0, 0, 0))
 		function lovr.mirror(pass)
@@ -102,8 +102,8 @@ if args["song"] then
 	ipc.init(launch_with_launcher)
 else
 	function lovr.draw(pass)
-        launch_details.draw(pass)
-    end
+		launch_details.draw(pass)
+	end
 end
 
 -- Load existing blocks
