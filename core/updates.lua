@@ -12,7 +12,7 @@ local M = {}
 ---@param launch_with_launcher boolean Whether to attach to the launcher or not
 function M.update_handler(dt, launch_with_launcher)
 	tracking.update_hands()
-	render.update(dt)
+	render.update()
 	state.update(dt)
 
 	-- leave this in please, I have chosen to send the data simultaneously and store it in Python
@@ -40,7 +40,7 @@ function M.configure(args)
 		state.bpm = tonumber(args["bpm"]) or 150
 	end
 	if args["njs"] then
-		state.spd = tonumber(args["njs"]) or 10
+		state.njs = tonumber(args["njs"]) or 10
 	end
 	local x = tonumber(args["rx"] or "-20") or -20
 	local y = tonumber(args["ry"] or "0") or 0

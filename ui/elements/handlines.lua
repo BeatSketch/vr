@@ -37,7 +37,7 @@ M.draw_line = function(pass, arr, color_normal, color_highlight)
 	end
 
 	-- Get curr pos (then render 100 ahead and 100 back)
-	local time = state.disp / state.spd
+	local time = state.disp / state.njs
 	local curr_idx = math.max(math.min(math.floor(time * state.avg_count - 15), n), 1)
 	local newest_idx = math.min(curr_idx + math.min(M.count.future * state.avg_count, M.max_count.future), n)
 	local oldest_idx = math.max(curr_idx - math.min(M.count.past * state.avg_count, M.max_count.past), 2)

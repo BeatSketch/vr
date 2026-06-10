@@ -61,7 +61,7 @@ M.len = 160
 
 --- How fast notes move towards user (NJS)
 --- @type number
-M.spd = 10
+M.njs = 10
 
 --- Speed multiplier when moving using the controller
 --- @type number
@@ -134,7 +134,7 @@ end
 M.update_disp = function(dt)
 	M.time = M.time + dt
 	if M.mode == "r" then
-		M.disp = M.disp + (dt * M.spd)
+		M.disp = M.disp + (dt * M.njs)
 	elseif M.mode == "v" then
 		if not processing.is_processing then
 			-- move via controller input
@@ -149,16 +149,16 @@ M.update_disp = function(dt)
 
 			local offset = dt * axes_l.y * M.seek_speed + dt * axes_r.y * M.seek_speed
 			local playhead_offset = audio.is_playing() and dt or 0
-			if M.disp + offset * M.spd + playhead_offset * M.spd > M.prev_disp then
+			if M.disp + offset * M.njs + playhead_offset * M.njs > M.prev_disp then
 				M.disp = M.prev_disp
 				audio.stop()
 				audio.seek_to_stored_pos()
 			elseif offset ~= 0 then
 				audio.stop()
-				M.disp = math.max(M.disp + offset * M.spd + playhead_offset * M.spd, 0)
+				M.disp = math.max(M.disp + offset * M.njs + playhead_offset * M.njs, 0)
 				audio.seek(math.max(audio.get_pos() + offset + playhead_offset, 0))
 			elseif audio.is_playing() then
-				M.disp = math.max(M.disp + dt * M.spd, 0)
+				M.disp = math.max(M.disp + dt * M.njs, 0)
 			end
 		end
 	end

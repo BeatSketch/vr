@@ -17,7 +17,7 @@ local base_quat = lovr.math.newQuat((quat(-math.pi * 0.5, 1, 0, 0) * quat(math.p
 function M.draw(pass)
 	for _, block in pairs(block_state.blocks) do
 		-- beat in time -> to displacement
-		local pos = -(block.beat * 60 / state.bpm) * state.spd + state.disp
+		local pos = -(block.beat * 60 / state.bpm) * state.njs + state.disp
 		if pos < -block_state.render_distance or pos > block_state.render_distance then
 			-- that's actually pretty cool that there is goto
 			goto continue

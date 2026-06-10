@@ -14,11 +14,10 @@ function M.draw(pass)
 end
 
 --- Update function for all menus, to be called by lovr.update
---- @param dt number Delta time
-function M.update(dt)
+function M.update()
 	finish.update()
 	start.update()
-	pause.update(dt)
+	pause.update()
 end
 
 function M.open_end_menu()

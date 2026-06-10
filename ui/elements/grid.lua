@@ -19,9 +19,9 @@ M.grid = function(pass)
 	--- Number of grid layers (beats)
 	local d = math.floor(state.bpm * (state.len / 60))
 	--- Distance between grid layers
-	state.dist = 60 / state.bpm * state.spd
+	state.dist = 60 / state.bpm * state.njs
 
-	local time = state.disp / state.spd
+	local time = state.disp / state.njs
 	local curr_idx = math.ceil(time / state.len * d)
 	local max_idx = math.min(curr_idx + state.signature.top * M.bar_count.future, d + M.end_beat_overflow)
 	local min_idx = math.max(curr_idx - state.signature.top * M.bar_count.past, 1)
