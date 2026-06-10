@@ -63,9 +63,9 @@ function M.update()
 		view_exit_button:handler(function()
 			state.set_mode("m")
 			if state.finished_recording then
-				pause.open_menu()
+                finish.open_menu()
 			else
-				finish.open_menu()
+                pause.open_menu()
 			end
 		end)
 		view_record_from_here_button:handler(function()

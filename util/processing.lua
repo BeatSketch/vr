@@ -25,7 +25,7 @@ function M.update(dt)
 end
 
 function M.request_existing_blocks()
-	ipc.send_text("proc:existing-blocks")
+	ipc.send_plain("proc:existing-blocks")
 	M.process_blocks()
 end
 
@@ -37,6 +37,9 @@ function M.process_blocks()
 		if type(value) == "string" then
 			if value == "data:blocks" then
 				next_is_blocks = true
+			elseif value == "data:noblocks" then
+				M.is_processing = false
+				break
 			end
 		else
 			if next_is_blocks then

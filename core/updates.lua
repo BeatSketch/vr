@@ -6,7 +6,6 @@ local audio = require("util.audio")
 local processing = require("util.processing")
 
 local M = {}
-local has_finished_recording = false
 
 --- Wrapper to be called by lovr.update function
 ---@param dt number the delta time
@@ -25,8 +24,8 @@ function M.update_handler(dt, launch_with_launcher)
 
 	-- FIXME: This should go in a different file,
 	-- but for that need to refactor core/state.lua
-	if state.mode == "r" and audio.get_pos() >= state.len and not has_finished_recording then
-		has_finished_recording = true
+	if state.mode == "r" and audio.get_pos() >= state.len and not state.finished_recording then
+        state.finished_recording = true
 		audio.stop()
 		render.open_end_menu()
 	end

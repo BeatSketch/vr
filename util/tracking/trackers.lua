@@ -107,7 +107,7 @@ function M.get_hand(hand, time)
 
 	return {
 		pos = lovr.math.newVec3(lovr.headset.getPosition(hand)),
-		direction = helpers.rotate_vec_according_to_config(controller_quat, dir),
+		direction = lovr.math.newVec3(helpers.rotate_vec_according_to_config(controller_quat, dir)),
 		angle = controller_quat,
 		timestamp = time,
 		buttons = helpers.get_down_buttons(hand, button_list),
