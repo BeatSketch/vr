@@ -55,7 +55,6 @@ M.bpm = 120
 --- @type 1 | 2 | 4 | 8 | 16
 M.beat_div = 4
 
--- TODO: Get from audio.get_duration() -> Needs refactor
 --- Current Song's length in seconds
 --- @type number
 M.len = 160
@@ -91,6 +90,9 @@ M.history_disp = {}
 --- Tracking frequency: Maximum number of hand tracking points per second
 --- @type number
 M.tracking_freq = 20
+
+--- @type boolean Has finished recording
+M.finished_recording = false
 
 --- Set current vr app mode
 --- @param new_mode "r" | "v" | "m" record, view or menu

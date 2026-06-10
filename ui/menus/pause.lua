@@ -27,16 +27,13 @@ function M.draw(pass)
 end
 
 --- Update handler for the pause menu
---- @param dt number delta time
-function M.update(dt)
+function M.update()
 	if show_menu then
 		pause_menu_resume_button:handler(M.pause_menu_handler)
 		pause_menu_quit_button:handler(function()
 			lovr.event.quit(0)
 		end)
 		pause_menu_preview_button:handler(function()
-			-- TODO: Start processing automatically
-			-- and wait for it to complete?
 			processing.start_processing()
 			show_menu = false
 			state.set_mode("v")
@@ -51,13 +48,10 @@ function M.update(dt)
 			end
 		end)
 	end
-	-- TODO: Remove -> Move somewhere else
-	processing.update(dt)
 end
 
 function M.pause_menu_handler()
 	show_menu = false
-	-- TODO: Mode switch when using pause menu in view mode
 	state.set_mode("r")
 	audio.start()
 end

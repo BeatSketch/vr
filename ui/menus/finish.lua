@@ -37,6 +37,7 @@ end
 function M.open_menu()
 	show_menu = true
 	state.set_mode("m")
+    state.finished_recording = true
 end
 
 function M.get_open()

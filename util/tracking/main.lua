@@ -2,6 +2,8 @@ local trackers = require("util.tracking.trackers")
 local audio = require("util.audio")
 local M = {}
 
+M.enable_vibrate = true
+
 --- @class AxisState
 --- @field x number x value of the axis of the analog device
 --- @field y number y value of the axis of the analog device
@@ -60,9 +62,21 @@ local tracker_states = {
 
 --- Store the positions for the hands
 function M.update_hands()
-	-- TODO: Here we could fix the positions
+	local prev_l = tracker_states.left.pos + tracker_states.left.direction
+	local prev_r = tracker_states.left.pos + tracker_states.right.direction
 	tracker_states.left = trackers.get_hand("left", audio.get_pos())
 	tracker_states.right = trackers.get_hand("right", audio.get_pos())
+
+	if M.enable_vibrate then
+		local dist_l = math.abs(prev_l - (tracker_states.left.pos + tracker_states.left.direction))
+		if dist_l > 0.2 then
+			lovr.headset.vibrate("left", math.min(dist_l - 0.2, 1))
+		end
+		local dist_r = math.abs(prev_r - (tracker_states.right.pos + tracker_states.right.direction))
+		if dist_r > 0.2 then
+			lovr.headset.vibrate("right", math.min(dist_r - 0.2, 1))
+		end
+	end
 end
 
 --- Store the position for the headset

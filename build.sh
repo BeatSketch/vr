@@ -30,7 +30,6 @@ if [ "$1" == "true" ]; then
 fi
 
 # Build for the peasants (Windows users)
-# TODO: Needs verification (that it works)
 if [ "$2" == "true" ]; then
 	echo "
 ==> Building for Windows

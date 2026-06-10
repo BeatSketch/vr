@@ -19,7 +19,7 @@ Should be included\
 - [X] **fix mixed up controllers on some platforms**
 
 ## Other
-- [ ] Seeking back in the song (when? After completion or in pause menu?)\
+- [X] Seeking back in the song (when? After completion or in pause menu?)\
     We should do this in both.
     In pause: Send current tracking data for processing and display, user can move around, teleported back to original location on resume
     At end: Essentially the same (see *rerecording*)

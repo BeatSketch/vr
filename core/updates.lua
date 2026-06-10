@@ -3,6 +3,7 @@ local tracking = require("util.tracking.main")
 local render = require("ui.render")
 local ipc = require("util.ipc.main")
 local audio = require("util.audio")
+local processing = require("util.processing")
 
 local M = {}
 local has_finished_recording = false
@@ -29,6 +30,8 @@ function M.update_handler(dt, launch_with_launcher)
 		audio.stop()
 		render.open_end_menu()
 	end
+
+	processing.update(dt)
 end
 
 --- Configure the application with the args provided
@@ -44,6 +47,7 @@ function M.configure(args)
 	local y = tonumber(args["ry"] or "0") or 0
 	local z = tonumber(args["rz"] or "0") or 0
 	tracking.set_saber_angles(x, y, z)
+	tracking.enable_vibrate = args["vibrate"] and args["vibrate"] == "true"
 end
 
 return M

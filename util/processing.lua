@@ -32,7 +32,6 @@ end
 function M.process_blocks()
 	local data = ipc.get_data()
 
-	-- TODO: Add function assignment for other kinds of data (if needed) here
 	local next_is_blocks = false
 	for _, value in pairs(data) do
 		if type(value) == "string" then
