@@ -104,14 +104,25 @@ end
 function M.get_hand(hand, time)
 	local dir = lovr.math.newVec3(lovr.headset.getDirection(hand))
 	local controller_quat = quat(lovr.headset.getOrientation(hand))
+	local pos = lovr.math.newVec3(lovr.headset.getPosition(hand))
 
-	return {
-		pos = lovr.math.newVec3(lovr.headset.getPosition(hand)),
-		direction = lovr.math.newVec3(helpers.rotate_vec_according_to_config(controller_quat, dir)),
-		angle = controller_quat,
-		timestamp = time,
-		buttons = helpers.get_down_buttons(hand, button_list),
-	}
+	if dir and controller_quat and pos then
+		return {
+			pos = pos,
+			direction = lovr.math.newVec3(helpers.rotate_vec_according_to_config(controller_quat, dir)),
+			angle = controller_quat,
+			timestamp = time,
+			buttons = helpers.get_down_buttons(hand, button_list),
+		}
+    else
+        return {
+            pos = lovr.math.newVec3(0, 0, 0),
+            direction = lovr.math.newVec3(0, 0, 0),
+            angle = lovr.math.newQuat(0, 0, 1, 0),
+            timestamp = time,
+            buttons = {}
+        }
+	end
 end
 
 --- Get the tracked position of the headset
