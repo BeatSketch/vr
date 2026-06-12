@@ -8,7 +8,20 @@ set -e
 echo "
 ==> Zipping BeatSketch VR
 "
+mkdir build/
+cp -r core build
+cp -r ui build
+cp -r util build
+cp -r json.lua build
+cp -r main.lua build
+cd build
+
 zip -9qr BeatSketch.lovr .
+
+cd ..
+cp build/BeatSketch.lovr .
+
+rm -rf ./build/
 
 # Build for GNU/Linux
 if [ "$1" == "true" ]; then
