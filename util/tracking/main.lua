@@ -2,7 +2,7 @@ local trackers = require("util.tracking.trackers")
 local audio = require("util.audio")
 local M = {}
 
-M.enable_vibrate = true
+M.enable_vibrate = false
 
 --- @class AxisState
 --- @field x number x value of the axis of the analog device

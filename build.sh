@@ -14,6 +14,9 @@ cp -r ui build
 cp -r util build
 cp -r json.lua build
 cp -r main.lua build
+mkdir build/assets
+cp assets/*.mtl build/assets
+cp assets/*.obj build/assets
 cd build
 
 zip -9qr BeatSketch.lovr .
