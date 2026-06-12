@@ -62,10 +62,14 @@ local unit_vec_z = lovr.math.newVec3(0, 0, 1)
 ---@param vec Vec3 The vector to rotate
 ---@param angle integer Angle in degrees
 function helpers.rotate_vector_along_own_frame_axis(axis, controller_quat, vec, angle)
-	local axis_vec = (axis == "x" and unit_vec_x) or (axis == "y" and unit_vec_y or unit_vec_z)
-	local rot_axis = controller_quat:mul(axis_vec):normalize()
-	local rot = quat(angle / 180 * math.pi, rot_axis:unpack())
-	return rot:mul(vec)
+	if controller_quat and vec then
+		local axis_vec = (axis == "x" and unit_vec_x) or (axis == "y" and unit_vec_y or unit_vec_z)
+		local rot_axis = controller_quat:mul(axis_vec):normalize()
+		local rot = quat(angle / 180 * math.pi, rot_axis:unpack())
+		return rot:mul(vec)
+    else
+        return vec3(0, 0, 0)
+	end
 end
 
 --- Rotate a vector according to the configuration set for each angle
@@ -114,14 +118,14 @@ function M.get_hand(hand, time)
 			timestamp = time,
 			buttons = helpers.get_down_buttons(hand, button_list),
 		}
-    else
-        return {
-            pos = lovr.math.newVec3(0, 0, 0),
-            direction = lovr.math.newVec3(0, 0, 0),
-            angle = lovr.math.newQuat(0, 0, 1, 0),
-            timestamp = time,
-            buttons = {}
-        }
+	else
+		return {
+			pos = lovr.math.newVec3(0, 0, 0),
+			direction = lovr.math.newVec3(0, 0, 0),
+			angle = lovr.math.newQuat(0, 0, 1, 0),
+			timestamp = time,
+			buttons = {},
+		}
 	end
 end
 
