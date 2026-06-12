@@ -87,6 +87,7 @@ if args["song"] then
 			pass:transform(view)
 			sabers.draw(pass)
 			render.draw(pass)
+            blocks.draw(pass)
 			return false
 		end
 	end
