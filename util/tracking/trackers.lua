@@ -110,6 +110,7 @@ function M.get_hand(hand, time)
 	local controller_quat = quat(lovr.headset.getOrientation(hand))
 	local pos = lovr.math.newVec3(lovr.headset.getPosition(hand))
 
+    print(pos, controller_quat, dir)
 	if dir and controller_quat and pos then
 		return {
 			pos = pos,
