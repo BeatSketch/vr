@@ -82,7 +82,7 @@ if args["song"] then
 	-- Desktop mirror. Can be disabled
 	if not args["mirror"] or args["mirror"] == "false" then
 		local x, y, z = -3, 3, 3
-		local view = lovr.math.newMat4():lookAt(vec3(x, y, z), vec3(0, 0, 0))
+		local view = lovr.math.newMat4():lookAt(vector.pack(x, y, z), vector.pack(0, 0, 0))
 		function lovr.mirror(pass)
 			pass:transform(view)
 			sabers.draw(pass)
