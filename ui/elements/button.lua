@@ -8,7 +8,7 @@ local tracking = require("util.tracking.main")
 --- @class Button
 --- @field text string
 --- @field text_size number Fraction of normal scale
---- @field position vector
+--- @field position Vec3
 --- @field width number
 --- @field height number
 --- @field private hovered boolean
@@ -37,8 +37,8 @@ function Button:new(x, y, z, rx, ry, rz, w, h, text, text_size)
 	local o = {
 		text = text,
 		text_size = text_size,
-		position = vector.pack(x, y, z),
-		rotation = vector.pack(rx, ry, rz),
+		position = lovr.math.newVec3(x, y, z),
+		rotation = lovr.math.newVec3(rx, ry, rz),
 		width = w,
 		height = h,
 		hover = false,
@@ -153,8 +153,8 @@ end
 ---@param ry number Rotation around Y axis
 ---@param rz number Rotation around Y axis
 function Button:set_position(x, y, z, rx, ry, rz)
-	self.position = vector.pack(x, y, z)
-	self.rotation = vector.pack(rx, ry, rz)
+	self.position = lovr.math.newVec3(x, y, z)
+	self.rotation = lovr.math.newVec3(rx, ry, rz)
 end
 
 ---Draw a button at specified position with given text.
@@ -179,7 +179,7 @@ function Button:draw(pass)
 	else
 		pass:setColor(self.color_text.r, self.color_text.g, self.color_text.b)
 	end
-	pass:text(self.text, self.position + vector.pack(0, 0, 0.001), self.text_size)
+	pass:text(self.text, self.position + vec3(0, 0, 0.001), self.text_size)
 end
 
 --- Button's event handler (should be called from lovr.update)
@@ -190,7 +190,7 @@ function Button:handler(cb)
 
 	for hand, state in pairs(tracking.get_hands()) do
 		-- Call the raycast helper function to get the intersection point of the ray and the button plane
-		local hit = raycast(state.pos, state.direction, self.position, vector.pack(0, 0, 1))
+		local hit = raycast(state.pos, state.direction, self.position, vec3(0, 0, 1))
 
 		local inside = false
 		if hit then

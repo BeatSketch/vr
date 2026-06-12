@@ -52,31 +52,31 @@ function helpers.get_down_buttons(device, buttons)
 end
 
 -- Pre-generate unit vectors
-local unit_vec_x = vector.pack(1, 0, 0)
-local unit_vec_y = vector.pack(0, 1, 0)
-local unit_vec_z = vector.pack(0, 0, 1)
+local unit_vec_x = lovr.math.newVec3(1, 0, 0)
+local unit_vec_y = lovr.math.newVec3(0, 1, 0)
+local unit_vec_z = lovr.math.newVec3(0, 0, 1)
 
 --- Rotate a vector around an axis
 ---@param axis "x" | "y" | "z" The axis to rotate it around
----@param controller_quat quaternion The tracked device's rotation
----@param vec vector The vector to rotate
+---@param controller_quat Quat The tracked device's rotation
+---@param vec Vec3 The vector to rotate
 ---@param angle integer Angle in degrees
 function helpers.rotate_vector_along_own_frame_axis(axis, controller_quat, vec, angle)
 	if controller_quat and vec then
 		local axis_vec = (axis == "x" and unit_vec_x) or (axis == "y" and unit_vec_y or unit_vec_z)
-		local rot_axis = (controller_quat * axis_vec):normalize()
-		local rot = quaternion.angleaxis(angle / 180 * math.pi, rot_axis:unpack())
-		return rot * vec
+		local rot_axis = controller_quat:mul(axis_vec):normalize()
+		local rot = quat(angle / 180 * math.pi, rot_axis:unpack())
+		return rot:mul(vec)
     else
-        return vector.pack(0, 0, 0)
+        return vec3(0, 0, 0)
 	end
 end
 
 --- Rotate a vector according to the configuration set for each angle
----@param controller_quat quaternion
----@param vec vector
+---@param controller_quat Quat
+---@param vec Vec3
 function helpers.rotate_vec_according_to_config(controller_quat, vec)
-	---@type vector
+	---@type Vec3
 	local rotated = vec
 	if helpers.angles["x"] ~= 0 then
 		rotated = helpers.rotate_vector_along_own_frame_axis("x", controller_quat, vec, helpers.angles["x"])
@@ -106,23 +106,24 @@ end
 --- @param time number The current time
 --- @return PositionState
 function M.get_hand(hand, time)
-	local dir = vector.pack(lovr.headset.getDirection(hand))
-	local controller_quat = quaternion.angleaxis(lovr.headset.getOrientation(hand))
-	local pos = vector.pack(lovr.headset.getPosition(hand))
+	local dir = lovr.math.newVec3(lovr.headset.getDirection(hand))
+	local controller_quat = quat(lovr.headset.getOrientation(hand))
+	local pos = lovr.math.newVec3(lovr.headset.getPosition(hand))
 
+    print(pos, controller_quat, dir)
 	if dir and controller_quat and pos then
 		return {
 			pos = pos,
-			direction = helpers.rotate_vec_according_to_config(controller_quat, dir),
+			direction = lovr.math.newVec3(helpers.rotate_vec_according_to_config(controller_quat, dir)),
 			angle = controller_quat,
 			timestamp = time,
 			buttons = helpers.get_down_buttons(hand, button_list),
 		}
 	else
 		return {
-			pos = vector.pack(0, 0, 0),
-			direction = vector.pack(0, 0, 0),
-			angle = quaternion.angleaxis(0, 0, 1, 0),
+			pos = lovr.math.newVec3(0, 0, 0),
+			direction = lovr.math.newVec3(0, 0, 0),
+			angle = lovr.math.newQuat(0, 0, 1, 0),
 			timestamp = time,
 			buttons = {},
 		}
@@ -134,9 +135,9 @@ end
 --- @return PositionState
 function M.get_head(dt)
 	return {
-		pos = vector.pack(lovr.headset.getPosition("head")),
-		direction = vector.pack(lovr.headset.getDirection("head")),
-		angle = quaternion.angleaxis(lovr.headset.getOrientation("head")),
+		pos = vec3(lovr.headset.getPosition("head")),
+		direction = vec3(lovr.headset.getDirection("head")),
+		angle = quat(lovr.headset.getOrientation("head")),
 		delta = dt,
 		buttons = {},
 	}

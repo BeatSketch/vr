@@ -20,9 +20,9 @@ local Tracking = {}
 --- @field head number
 
 --- @class PositionState
---- @field pos vector
---- @field direction vector The direction vector
---- @field angle quaternion
+--- @field pos Vec3
+--- @field direction Vec3 The direction vector
+--- @field angle Quat
 --- @field timestamp number
 --- @field buttons button[]
 
@@ -91,8 +91,8 @@ end
 
 --- Get the tip at the specified index
 --- @param length number
---- @return vector left - The tracking data object
---- @return vector right - The tracking data object
+--- @return Vec3 left - The tracking data object
+--- @return Vec3 right - The tracking data object
 function Tracking:get_tips(length, idx)
 	return (self.data.left[idx].direction + self.data.left[idx].direction * length),
 		(self.data.right[idx].direction + self.data.right[idx].direction * length)

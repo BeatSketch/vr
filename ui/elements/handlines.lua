@@ -46,14 +46,14 @@ M.draw_line = function(pass, arr, color_normal, color_highlight)
 	if arr[oldest_idx - 1] == nil then
 		return
 	end
-	local point = arr[oldest_idx - 1].pos + vector.pack(0, 0, state.disp - state.history_disp[oldest_idx - 1])
+	local point = arr[oldest_idx - 1].pos + lovr.math.vec3(0, 0, state.disp - state.history_disp[oldest_idx - 1])
 	pass:setColor(color_highlight)
 	pass:points(point)
 
 	local prev = point
 	for i = oldest_idx, newest_idx, 1 do
 		-- Need to be shifted by grid displacement at time of recording and current grid disp
-		point = arr[i].pos + vector.pack(0, 0, state.disp - state.history_disp[i])
+		point = arr[i].pos + lovr.math.vec3(0, 0, state.disp - state.history_disp[i])
 
 		pass:setColor(color_highlight)
 		pass:points(point)
