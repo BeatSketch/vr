@@ -110,9 +110,6 @@ function M.get_hand(hand, time)
 	local controller_quat = quaternion.angleaxis(lovr.headset.getOrientation(hand))
 	local pos = vector.pack(lovr.headset.getPosition(hand))
 
-    print(pos)
-    print(controller_quat)
-    print(dir)
 	if dir and controller_quat and pos then
 		return {
 			pos = pos,
