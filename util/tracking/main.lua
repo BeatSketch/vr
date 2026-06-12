@@ -38,23 +38,23 @@ end
 --- @type TrackerStates
 local tracker_states = {
 	head = {
-		pos = lovr.math.newVec3(0, 0, 0),
-		direction = lovr.math.newVec3(0, 0, 0),
-		angle = lovr.math.newQuat(0, 0, 0, 1),
+		pos = vector.pack(0, 0, 0),
+		direction = vector.pack(0, 0, 0),
+		angle = quaternion.angleaxis(0, 0, 0, 1),
 		timestamp = 0,
 		buttons = {},
 	},
 	left = {
-		pos = lovr.math.newVec3(0, 0, 0),
-		direction = lovr.math.newVec3(0, 0, 0),
-		angle = lovr.math.newQuat(0, 0, 0, 1),
+		pos = vector.pack(0, 0, 0),
+		direction = vector.pack(0, 0, 0),
+		angle = quaternion.angleaxis(0, 0, 0, 1),
 		timestamp = 0,
 		buttons = {},
 	},
 	right = {
-		pos = lovr.math.newVec3(0, 0, 0),
-		direction = lovr.math.newVec3(0, 0, 0),
-		angle = lovr.math.newQuat(0, 0, 0, 1),
+		pos = vector.pack(0, 0, 0),
+		direction = vector.pack(0, 0, 0),
+		angle = quaternion.angleaxis(0, 0, 0, 1),
 		timestamp = 0,
 		buttons = {},
 	},
