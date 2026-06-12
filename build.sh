@@ -1,12 +1,14 @@
 #!/bin/sh
 
 set -e
+
+zip -9qr BeatSketch.lovr .
+
 # Build for GNU/Linux
 if [ "$1" == "true" ]; then
 	echo "
 ==> Building for Linux
     "
-	zip -9qr BeatSketch.lovr .
 	if [ -e "/usr/bin/lovr" ]; then
 		echo "Using locally installed lovr"
 		cat /usr/bin/lovr BeatSketch.lovr >BeatSketch
