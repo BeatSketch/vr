@@ -40,13 +40,13 @@ function M.configure(args)
 		state.bpm = tonumber(args["bpm"]) or 150
 	end
 	if args["njs"] then
-		state.njs = tonumber(args["njs"]) or 10
+		state.njs = tonumber(args["njs"]) or 10.0
 	end
 	local x = tonumber(args["rx"] or "-20") or -20
 	local y = tonumber(args["ry"] or "0") or 0
 	local z = tonumber(args["rz"] or "0") or 0
 	tracking.set_saber_angles(x, y, z)
-	tracking.enable_vibrate = args["vibrate"] and args["vibrate"] == "true"
+	-- tracking.enable_vibrate = args["vibrate"] and args["vibrate"] == "true"
 end
 
 return M

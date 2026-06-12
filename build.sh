@@ -1,7 +1,13 @@
 #!/bin/sh
 
+rm -rf ./BeatSketch
+rm -rf ./BeatSketch.exe
+
 set -e
 
+echo "
+==> Zipping BeatSketch VR
+"
 zip -9qr BeatSketch.lovr .
 
 # Build for GNU/Linux
